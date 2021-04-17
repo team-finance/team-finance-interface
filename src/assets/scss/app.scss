@@ -1,3 +1,5 @@
+@import './colors.scss';
+
 .main-layout{
     height: 100vh;
     width: 100%;
@@ -7,49 +9,47 @@
 }
 
 .main-header{
-    height:90px;
+    height:5.625rem;
     width: 100%;
     align-items: center;
-    background-color: #055aa8;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    z-index: 9999;
+    background-color: $color-app-bg;
 
     .team-logo{
         text-align: center !important;
 
         img{
-            height:50px;
+            height:3.125rem;
         }
     }
 
     .nav-options{
-        justify-content: space-around;
+        // justify-content: space-around;
+        justify-content: center;
 
         .nav-li{
             color:#ffffff;
             display:flex;
             cursor: pointer;
             opacity: 0.5;
+            margin:0 1rem;
 
-            &:hover{
+            &:hover,&.nav-li-active{
                 opacity: 1;
+                text-decoration: none;
             }
 
             img{
-                height:18px;
-                margin-right:7px;
+                height:1.125rem;
+                margin-right:0.4375rem;
             }
 
             span{
-                font-size: 18px;
+                font-size: 1.125rem;
                 font-weight: 600;
                 font-stretch: normal;
                 font-style: normal;
                 line-height: normal;
-                letter-spacing: 0.07px;
+                letter-spacing: 0.0044rem;
             }
         }
     }
@@ -59,15 +59,21 @@
 
         .btn{
             background: transparent;
-            padding: 10px 15px;
-            border-radius: 5px;
-            border: 1px solid #ffffff;
-            font-size: 16px;
-            letter-spacing: 0.28px;
+            padding: 0.625rem 0.9375rem;
+            border-radius: 0.3125rem;
+            border: 0.0625rem solid #ffffff;
+            font-size: 1rem;
+            letter-spacing: 0.0175rem;
             color: #ffffff;
-            margin: 0px;
+            margin: 0;
         }
     }
+}
+
+.main-body{
+    height:calc(100% - 5.625rem);
+    background-color: $color-app-bg;
+
 }
 
 .container-fluid {

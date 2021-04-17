@@ -1,0 +1,116 @@
+@import './colors.scss';
+
+.content-card{
+    border-radius: 0.3125rem !important;
+    
+    .aux-card-header{
+
+        .arrow{
+            float:left;
+
+            i{
+                vertical-align: middle;
+                font-size: 1.5625rem;
+                cursor: pointer;
+            }
+        }
+        
+        .lock-img{
+            height:1.125rem;
+            width:1.125rem;
+        }
+        
+        .heading{
+            vertical-align: middle;
+        }
+    };
+    
+    .aux-card-body{
+        
+        .header-row{
+            display: block;
+            text-align: center;
+            
+            .lock-tokens-img{
+                height:6.25rem;
+                width:6.25rem;
+            }
+            
+            .sub-text{
+                font-size: 0.8125rem;
+                line-height: 1.36;
+                letter-spacing: 0.0069rem;
+                text-align: center;
+                margin-bottom:0.625rem !important;
+                color: $color-header-sub-title;
+            }
+        }
+
+        .continue-btn{
+            width: 17.1875rem;
+            height: 3.125rem;
+            border-radius: 0.4688rem;
+            background-color: $color-btn-primary;
+            border-color: $color-btn-primary;
+            color: $color-btn-font;
+            margin:auto;
+            box-shadow: none
+        }
+    }
+};
+
+.network-card{
+    width:100%;
+    height:3.75rem;
+    margin:0.625rem 0;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+
+    &:hover,&.selected{
+        border-color:$color-card-select;
+    }
+
+    .card-content{
+        margin: 0;
+        height:100%;
+        align-items: center !important;
+
+        .network-logo{
+            text-align: center;
+    
+            img{
+            height:1.875rem;
+            width:1.875rem;
+            text-align: right;
+            }
+        }
+    
+        .network-name{
+            font-size: 0.8125rem;
+            font-weight: bold;
+            letter-spacing: 0.0075rem;
+            text-align: left;
+            color: $color-header-title;
+        }
+    
+        .network-sub-text{
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.0075rem;
+            text-align: left;
+            color: $color-header-sub-title;
+        }
+
+        .select-icon{
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            margin:auto;
+            border: 0.0625rem solid #d1d4d7;
+
+            &.selected{
+                border:0.4375rem solid $color-card-select;
+            }
+        }
+    }
+}
