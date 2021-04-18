@@ -1,4 +1,4 @@
-import { createSlice, Dispatch } from "@reduxjs/toolkit";
+import { AnyAction, createSlice, Dispatch } from "@reduxjs/toolkit";
 import { SettingsState } from "../types";
 import {helperDesc} from "./helper"
 const initialState: SettingsState = {
@@ -19,7 +19,7 @@ export const settingsSlice = createSlice({
 export const { setTheme} = settingsSlice.actions;
 
 // Thunks
-export const setThemeHandler = () =>  async (dispatch:Dispatch) => {
+export const setThemeHandler = () =>  async (dispatch:any) => {
     helperDesc();
     dispatch(setTheme(""));
 }
