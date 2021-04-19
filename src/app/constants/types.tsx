@@ -17,3 +17,7 @@ export interface AuxCardType {
     className?: string,
     width?: number
 };
+
+export interface TokenCardType {
+    selectedTokenId: number
+};

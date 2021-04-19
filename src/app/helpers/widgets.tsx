@@ -44,7 +44,7 @@ export const AuxCardFooter = (props: AuxCardType) => {
 
     return (
         <Card.Footer
-            className={`aux-card-Footer ${className ? className : ""}`}
+            className={`aux-card-footer ${className ? className : ""}`}
         >
             {children}
         </Card.Footer>

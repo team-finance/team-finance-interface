@@ -19,6 +19,6 @@ const FieldCard = (props: NetworkCardType) => {
             </Col>
         </Row>
     </Card>
-}
+};
 
 export default FieldCard;
