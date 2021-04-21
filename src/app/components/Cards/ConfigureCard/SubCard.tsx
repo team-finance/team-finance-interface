@@ -1,0 +1,71 @@
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Button, Card } from "react-bootstrap";
+import { ConfigureSubCardType } from '../../../constants/types';
+import { DAY_DROPDOWN_LIST } from '../../../constants';
+
+const SubCard = (props: ConfigureSubCardType) => {
+    const { name, value, subValue, onChange, isUnit, isMax, token, unit, onSelect } = props;
+
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    // useEffect(() => {
+    //     if (isOpen && window.)
+
+    // }, [isOpen]);
+
+    const handleSelect = (id: number) => {
+        onSelect && onSelect(id);
+        setIsOpen(false);
+    };
+
+    return <Card className="sub-card">
+        <Col className="p-0">
+            <Row className="m-0 h-50 row-wrap">
+                <Col className="p-0 name-wrap">{name}</Col>
+                <Col className="p-0 sub-value-wrap">
+                    <span className="sub-value">{subValue}</span>
+                </Col>
+            </Row>
+            <Row className="m-0 h-50 row-wrap">
+                <Col className="p-0 value-wrap" sm={6} md={6} lg={6}>
+                    <input
+                        type="number"
+                        value={value}
+                        className="form-control field-input"
+                        placeholder="0"
+                        onChange={(e) => onChange(parseInt(e.target.value))}
+                    />
+                </Col>
+                {isMax && <Col className="p-0 max-wrap" sm={2} md={2} lg={2}>
+                    <Button className="max-btn">Max</Button>
+                </Col>}
+                <Col className="unit-wrap">
+                    {(isUnit && unit) ?
+                        <div className="drop-down-btn">
+                            <span className="title" onClick={() => setIsOpen(!isOpen)}>
+                                {DAY_DROPDOWN_LIST[unit]}
+                                <span className="down-arrow ml-2">
+                                    <i className="fa fa-chevron-down" />
+                                </span>
+                            </span>
+                            {isOpen && <div className="drop-down-menu">
+                                {Object.keys(DAY_DROPDOWN_LIST).map(id => {
+                                    const isSelected = parseInt(id) === unit;
+                                    return <div
+                                        key={id}
+                                        className={`drop-down-item ${isSelected && "selected"}`}
+                                        onClick={() => handleSelect(parseInt(id))}>
+                                        {DAY_DROPDOWN_LIST[parseInt(id)]}
+                                    </div>
+                                })}
+                            </div>}
+                        </div>
+                        : <span className="unit">{token}</span>
+                    }
+                </Col>
+            </Row>
+        </Col>
+    </Card>
+};
+
+export default SubCard;

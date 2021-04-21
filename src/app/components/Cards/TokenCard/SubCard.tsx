@@ -1,8 +1,10 @@
 import React from 'react';
 import { Row, Col, Card, Button } from "react-bootstrap";
+import { TokenSubCardType } from '../../../constants/types';
 
+const SubCard = (props: TokenSubCardType) => {
+    const { onSelect } = props
 
-const SubCard = () => {
     return <Card className="sub-card">
         <Col className="p-0">
             <Row className="m-0 h-50">
@@ -15,7 +17,7 @@ const SubCard = () => {
                     <span className="token-name">UNI</span>
                 </Col>
                 <Col className="p-0">
-                    <Button className="select-btn">Select</Button>
+                    <Button className="select-btn" onClick={onSelect}>Select</Button>
                 </Col>
             </Row>
         </Col>

@@ -5,9 +5,14 @@ import { TokenCardType } from '../../../constants/types';
 import SubCard from './SubCard';
 
 const TokenCard = (props: TokenCardType) => {
-    const { selectedTokenId } = props;
+    const { selectedTokenId, onSelect } = props;
 
-    const [searchText, setSearchText] = useState<string>("")
+    const [searchText, setSearchText] = useState<string>("");
+
+    const handleSelect = () => {
+        setSearchText("");
+        onSelect();
+    };
 
     return <AuxCard.Body className="token-card">
         <Col className="p-0">
@@ -36,10 +41,10 @@ const TokenCard = (props: TokenCardType) => {
                         <i className="fa fa-search" aria-hidden="true" />
                     </div>
                 </div>
-                {/* {!searchText && <p className="sub-text">
+                {!searchText && <p className="sub-text">
                     e.g. 0xb05AF453011d7ad68a92b0065FFD9d1277eD2741
-                </p>} */}
-                {searchText && <SubCard />}
+                </p>}
+                {searchText && <SubCard onSelect={handleSelect} />}
             </Row>
         </Col>
     </AuxCard.Body>

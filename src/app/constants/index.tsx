@@ -1,4 +1,4 @@
-import { HeaderListType, FieldListType } from './types';
+import { HeaderListType, FieldListType, DayDropdownListType } from './types';
 
 export const HEADER_LIST: Array<HeaderListType> = [
     { id: 1, label: "explore", icon: "explore" },
@@ -17,3 +17,15 @@ export const TOKEN_LIST: Array<FieldListType> = [
     { id: 1, label: "Liquidity Tokens", logo: "liquidity", subText: "UNI-V2 LP Tokens generated from Uniswap Pool" },
     { id: 2, label: "Project Tokens", logo: "project", subText: "Regular ERC-20 Project Tokens" },
 ];
+
+// export const DAY_DROPDOWN_LIST: Array<DayDropdownListType> = [
+//     { id: 1, label: "Days" },
+//     { id: 2, label: "Months" },
+//     { id: 3, label: "Timestamp" }
+// ];
+
+export const DAY_DROPDOWN_LIST: { [id: number]: string } = {
+    1: "Days",
+    2: "Months",
+    3: "Timestamp"
+};
