@@ -4,13 +4,14 @@ import moment from "moment-timezone";
 import { Row, Col, Button } from "react-bootstrap";
 import SubCard from "./SubCard";
 import { DAY_DROPDOWN_LIST } from "../../../constants";
+import { useLockupState } from "app/state/hooks";
 
 const ConfigureCard = () => {
   const [amount, setAmount] = useState<number>(0);
   const [dateCount, setDateCount] = useState<number>(90);
   const [unit, setUnit] = useState<number>(1);
   const [date, setDate] = useState(moment(Date()));
-
+  const { lockups } = useLockupState();
   useEffect(() => {
     getCalculatedDate(unit);
   }, [unit, dateCount]);
@@ -38,6 +39,7 @@ const ConfigureCard = () => {
   return (
     <AuxCard.Body className="configure-card">
       <Col className="p-0">
+        {/* {lockups.fetchedToken.map((token: any) => { */}
         <SubCard
           name="Lock Amount"
           subValue="Balance: 0.00"
@@ -47,6 +49,7 @@ const ConfigureCard = () => {
           isMax={true}
           onChange={setAmount}
         />
+        ;{/* })} */}
         <div className="lock-wrap">
           <img
             src={require("../../../../assets/images/lock.svg").default}

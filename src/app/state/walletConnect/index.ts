@@ -9,6 +9,7 @@ const initialState: WalletState = {
   walletError: null,
   accounts: [],
   connectedWallet: null,
+  currentProvider: null,
 };
 
 export const walletSlice = createSlice({
@@ -26,6 +27,7 @@ export const walletSlice = createSlice({
       state.isConnected = action.payload.isConnected;
       state.accounts = action.payload.accounts;
       state.walletError = action.payload.walletError;
+      state.currentProvider = action.payload.currentProvider;
     },
   },
 });

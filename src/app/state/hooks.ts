@@ -10,3 +10,8 @@ export const useWalletState = (): any => {
   const wallets = useSelector((state: State) => state);
   return wallets;
 };
+
+export const useLockupState = (): any => {
+  const lockups = useSelector((state: State) => state);
+  return lockups;
+};

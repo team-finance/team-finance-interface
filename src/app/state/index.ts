@@ -3,13 +3,14 @@ import { useDispatch } from "react-redux";
 import { load, save } from "redux-localstorage-simple";
 import settingsReducer from "./settings";
 import walletReducer from "./walletConnect";
-
+import lockupReducer from "./lockups";
 const PERSISTED_KEYS: string[] = ["settings", "wallets"];
 
 const store = configureStore({
   reducer: {
     settings: settingsReducer,
     wallets: walletReducer,
+    lockups: lockupReducer,
   },
   devTools: true,
   middleware: [

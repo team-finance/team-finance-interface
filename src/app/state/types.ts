@@ -8,9 +8,15 @@ export interface WalletState {
   walletError: string | null;
   accounts: string[];
   connectedWallet: any;
+  currentProvider: any;
+}
+
+export interface LockupState {
+  fetchedToken: any[];
 }
 
 export interface State {
   settings: SettingsState;
   wallets: WalletState;
+  lockups: LockupState;
 }

@@ -104,7 +104,7 @@ const handleMetamask = (accounts: any, dispatch: any, currentProvider: any) => {
     !(window as any).ethereum.selectedAddress &&
     accounts.length <= 0
   ) {
-    console.log("META");
+    console.log("META", currentProvider);
     (window as any).ethereum
       .enable()
       .then((res: any) => {
@@ -118,6 +118,7 @@ const handleMetamask = (accounts: any, dispatch: any, currentProvider: any) => {
                 isConnected: true,
                 accounts: [...res],
                 walletError: null,
+                currentProvider: currentProvider,
               })
             );
             // getAccountBalance(res[0], currentProvider);
@@ -164,6 +165,7 @@ const handleMetamask = (accounts: any, dispatch: any, currentProvider: any) => {
         isConnected: true,
         accounts: [...accounts],
         walletError: null,
+        currentProvider: currentProvider,
       })
     );
   }
@@ -175,6 +177,7 @@ export async function handleWalletConnect(
   walletName: string,
   dispatch: Dispatch
 ) {
+  console.log(currentProviders);
   try {
     let accounts: any;
     switch (walletName) {
