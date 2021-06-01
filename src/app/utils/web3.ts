@@ -6,7 +6,7 @@ import WalletLink from "walletlink";
 
 let web3Provider: any;
 const API_KEY: any = process.env.REACT_APP_FORMATIC_API_KEY;
-let PORTIS_API_KEY: any = process.env.REACT_APP_PORTIS_WALLET_ID;
+// let PORTIS_API_KEY: any = process.env.REACT_APP_PORTIS_WALLET_ID;
 const APP_NAME = "UniLend Finance Interface";
 const APP_LOGO_URL =
   "https://app.unilend.finance/static/media/logo.d90c2543.svg";
