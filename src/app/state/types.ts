@@ -24,9 +24,9 @@ export interface WalletState {
 export interface LockupState {
   fetchedToken: any[];
   selectedToken: any;
-  isLockupApproved: any;
-  isLockApproveLoading: any;
-  lockApproveStatus: any;
+  isLockupApproved: boolean;
+  isLockApproveLoading: boolean;
+  lockApproveStatus: LockApproveState;
 }
 
 export interface State {

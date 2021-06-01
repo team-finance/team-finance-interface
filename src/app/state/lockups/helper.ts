@@ -5,7 +5,7 @@ import {
   approveTokenMaximumValue,
 } from "../../ethereum/index";
 import { LockApproveState } from "../types";
-import { getProvider } from "../walletConnect";
+import { getProvider } from "../walletConnect/helper";
 import { toggleLockupApproved, setLockApproveStatus } from "./index";
 
 export const getAllowance =
@@ -42,6 +42,7 @@ export const handleApproval =
       .on("receipt", (res: any) => {
         console.log("receipt", res);
         dispatch(setLockApproveStatus(LockApproveState.SUCCESS));
+        dispatch(toggleLockupApproved(true));
       })
       .on("transactionHash", (hash: any) => {
         console.log("transaction", hash);

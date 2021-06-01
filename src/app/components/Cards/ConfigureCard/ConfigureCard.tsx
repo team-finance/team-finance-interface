@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { AuxCard } from "../../../helpers/widgets";
 import moment from "moment-timezone";
