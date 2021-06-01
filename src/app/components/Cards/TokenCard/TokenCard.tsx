@@ -31,13 +31,13 @@ const TokenCard = (props: TokenCardType) => {
 
   const tokenList = (fetchedList: any) => {
     console.log("List", fetchedList);
-    return fetchedList.map((token: any) => {
+    return fetchedList.map((token: any) => (
       <SubCard
         key={token.address}
         onSelect={handleSelect}
         tokenDetail={token}
-      />;
-    });
+      />
+    ));
   };
   return (
     <AuxCard.Body className="token-card">
