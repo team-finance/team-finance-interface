@@ -7,10 +7,8 @@ import { FieldListType, SlideCardType } from "../../constants/types";
 import FieldCard from "./FieldCard";
 import { useAppDispatch } from "../../state";
 import { setThemeHandler } from "../../state/settings";
-import { useDispatch } from "react-redux";
 import { useSettings, useWalletState } from "../../state/hooks";
 import TokenCard from "./TokenCard/TokenCard";
-import { setTokenSourceMapRange } from "typescript";
 import ConfigureCard from "./ConfigureCard/ConfigureCard";
 import { setChain } from "../../state/walletConnect";
 
@@ -105,8 +103,8 @@ const ContentCard = () => {
               <Row className="m-0 mb-2">
                 {slideCard.tokenList && selectedNetworkId
                   ? TOKEN_LIST.map((token: FieldListType) => {
-                      const icon = require(`../../../assets/images/token_${token.logo}_locked.png`)
-                        .default;
+                      const icon =
+                        require(`../../../assets/images/token_${token.logo}_locked.png`).default;
                       const isSelected = selectedTokenId === token.id;
                       return (
                         <FieldCard
@@ -119,8 +117,8 @@ const ContentCard = () => {
                       );
                     })
                   : NETWORK_LIST.map((network: FieldListType) => {
-                      const icon = require(`../../../assets/images/network_${network.logo}.png`)
-                        .default;
+                      const icon =
+                        require(`../../../assets/images/network_${network.logo}.png`).default;
                       const isSelected = wallets.selectedChain === network.id;
                       return (
                         <FieldCard

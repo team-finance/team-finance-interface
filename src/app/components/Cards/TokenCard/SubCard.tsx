@@ -1,12 +1,18 @@
+import { useAppDispatch } from "app/state";
 import React, { useEffect } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { TokenSubCardType } from "../../../constants/types";
-
+import { setselectedToken } from "app/state/lockups/index";
 const SubCard = (props: TokenSubCardType) => {
-  const { onSelect, tokenDetail } = props;
+  const { key, onSelect, tokenDetail } = props;
+  const dispatch = useAppDispatch();
   useEffect(() => {
     console.log("token", tokenDetail);
   }, [tokenDetail]);
+  const onTokenSelect = () => {
+    dispatch(setselectedToken(tokenDetail));
+    onSelect();
+  };
   return (
     <Card className="sub-card">
       <Col className="p-0">
@@ -16,16 +22,14 @@ const SubCard = (props: TokenSubCardType) => {
         <Row className="m-0 h-50">
           <Col className="p-0 token-info">
             <img
-              src={
-                require("../../../../assets/images/uniswap_token.png").default
-              }
+              src={`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${tokenDetail.address}/logo.png`}
               alt=""
               className="token-icon"
             />
-            <span className="token-name">UNI</span>
+            <span className="token-name">{tokenDetail.symbol}</span>
           </Col>
           <Col className="p-0">
-            <Button className="select-btn" onClick={onSelect}>
+            <Button className="select-btn" onClick={onTokenSelect}>
               Select
             </Button>
           </Col>

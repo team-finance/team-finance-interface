@@ -1,7 +1,7 @@
 import Web3 from "web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Fortmatic from "fortmatic";
-import Portis from "@portis/web3";
+// import Portis from "@portis/web3";
 import WalletLink from "walletlink";
 
 let web3Provider: any;
@@ -24,8 +24,8 @@ export const connectWalletProvider: any = new WalletConnectProvider({
 export const connectWalletWeb3 = new Web3(connectWalletProvider);
 export const fm: any = new Fortmatic(API_KEY, "ropsten");
 export const formaticWeb3 = new Web3(fm.getProvider());
-export const portis: any = new Portis(PORTIS_API_KEY, "ropsten");
-export const portisWeb3: any = new Web3(portis.provider);
+// export const portis: any = new Portis(PORTIS_API_KEY, "ropsten");
+// export const portisWeb3: any = new Web3(portis.provider);
 // TypeScript
 
 // Initialize WalletLink

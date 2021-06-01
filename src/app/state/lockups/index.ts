@@ -5,6 +5,7 @@ import { getCoreContract, getIERC20Contract } from "../../ethereum/coreLB";
 import { coreContractAddress } from "../../ethereum/index";
 const initialState: LockupState = {
   fetchedToken: [],
+  selectedToken: "",
 };
 
 export const lockupSlice = createSlice({
@@ -12,12 +13,15 @@ export const lockupSlice = createSlice({
   initialState,
   reducers: {
     fetchTokenDetails: (state, action) => {
-      state.fetchedToken.push(action.payload);
+      state.fetchedToken = [action.payload];
+    },
+    setselectedToken: (state, action) => {
+      state.selectedToken = action.payload;
     },
   },
 });
 
-export const { fetchTokenDetails } = lockupSlice.actions;
+export const { fetchTokenDetails, setselectedToken } = lockupSlice.actions;
 
 export const getAllowance = (address: any, currentProvider: any) => {
   //   console.log(getCoreContract(coreContractAddress, currentProvider));

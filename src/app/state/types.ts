@@ -13,6 +13,7 @@ export interface WalletState {
 
 export interface LockupState {
   fetchedToken: any[];
+  selectedToken: any;
 }
 
 export interface State {
