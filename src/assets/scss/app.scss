@@ -1,75 +1,80 @@
-.main-layout{
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
-    position: fixed;
-    font-family: "Helvetica Neue", Roboto;
+@import "./colors.scss";
+
+.main-layout {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  font-family: "Helvetica Neue", Roboto;
 }
 
-.main-header{
-    height:90px;
-    width: 100%;
-    align-items: center;
-    background-color: #055aa8;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    z-index: 9999;
+.main-header {
+  height: 5.625rem;
+  width: 100%;
+  align-items: center;
+  background-color: $color-app-bg;
 
-    .team-logo{
-        text-align: center !important;
+  .team-logo {
+    text-align: center !important;
 
-        img{
-            height:50px;
-        }
+    img {
+      height: 3.125rem;
     }
+  }
 
-    .nav-options{
-        justify-content: space-around;
+  .nav-options {
+    justify-content: center;
 
-        .nav-li{
-            color:#ffffff;
-            display:flex;
-            cursor: pointer;
-            opacity: 0.5;
+    .nav-li {
+      color: #ffffff;
+      display: flex;
+      cursor: pointer;
+      opacity: 0.5;
+      margin: 0 1rem;
 
-            &:hover{
-                opacity: 1;
-            }
+      &:hover,
+      &.nav-li-active {
+        opacity: 1;
+        text-decoration: none;
+      }
 
-            img{
-                height:18px;
-                margin-right:7px;
-            }
+      img {
+        height: 1.125rem;
+        margin-right: 0.4375rem;
+      }
 
-            span{
-                font-size: 18px;
-                font-weight: 600;
-                font-stretch: normal;
-                font-style: normal;
-                line-height: normal;
-                letter-spacing: 0.07px;
-            }
-        }
+      span {
+        font-size: 1.125rem;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: 0.0044rem;
+      }
     }
+  }
 
-    .btn-connect{
-        text-align: center;
+  .btn-connect {
+    text-align: center;
 
-        .btn{
-            background: transparent;
-            padding: 10px 15px;
-            border-radius: 5px;
-            border: 1px solid #ffffff;
-            font-size: 16px;
-            letter-spacing: 0.28px;
-            color: #ffffff;
-            margin: 0px;
-        }
+    .btn {
+      background: transparent;
+      padding: 0.625rem 0.9375rem;
+      border-radius: 0.3125rem;
+      border: 0.0625rem solid #ffffff;
+      font-size: 1rem;
+      letter-spacing: 0.0175rem;
+      color: #ffffff;
+      margin: 0;
     }
+  }
+}
+
+.main-body {
+  height: calc(100% - 5.625rem);
+  background-color: $color-app-bg;
 }
 
 .container-fluid {
-    padding: 0;
+  padding: 0;
 }
