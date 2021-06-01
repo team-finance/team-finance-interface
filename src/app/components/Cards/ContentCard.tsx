@@ -7,12 +7,11 @@ import { FieldListType, SlideCardType } from "../../constants/types";
 import FieldCard from "./FieldCard";
 import { useAppDispatch } from "../../state";
 import { setThemeHandler } from "../../state/settings";
-import { useDispatch } from "react-redux";
 import { useSettings, useWalletState } from "../../state/hooks";
 import TokenCard from "./TokenCard/TokenCard";
-import { setTokenSourceMapRange } from "typescript";
 import ConfigureCard from "./ConfigureCard/ConfigureCard";
 import { setChain } from "../../state/walletConnect";
+import { motion } from "framer-motion";
 
 const ContentCard = () => {
   const [selectedNetworkId, setSelectedNetworkId] = useState<number>(1);
@@ -28,7 +27,7 @@ const ContentCard = () => {
   const { settings } = useSettings();
   const { wallets } = useWalletState();
   useEffect(() => {
-    console.log(settings, wallets);
+    // console.log(settings, wallets);
   }, [settings, wallets]);
 
   const handleContinue = () => {
@@ -55,6 +54,58 @@ const ContentCard = () => {
 
   const handleSelect = () => {
     setSlideCard({ ...slideCard, tokenCard: false, configureCard: true });
+  };
+
+  const imgVariants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      // y: "20px",
+      transition: {
+        delay: 0.2,
+        duration: 0.5,
+      },
+    },
+    //  exit: {
+    //    x: "-100vw",
+    //    transition: { ease: "easeInOut" },
+    //  },
+  };
+  const pVariants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      // y: "20px",
+      transition: {
+        delay: 0.5,
+        duration: 0.5,
+      },
+    },
+    //  exit: {
+    //    x: "-100vw",
+    //    transition: { ease: "easeInOut" },
+    //  },
+  };
+  const selectVariants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      // y: "20px",
+      transition: {
+        delay: 0.8,
+        duration: 0.5,
+      },
+    },
+    //  exit: {
+    //    x: "-100vw",
+    //    transition: { ease: "easeInOut" },
+    //  },
   };
 
   return (
@@ -87,52 +138,69 @@ const ContentCard = () => {
             <Col className="p-0">
               <Row className="m-0 header-row">
                 <p className="mb-0">
-                  <img
+                  <motion.img
                     src={
                       require("../../../assets/images/lock-tokens.png").default
                     }
                     alt=""
                     className="lock-tokens-img"
+                    variants={imgVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
                   />
                 </p>
-                <p className="sub-text">
+                <motion.p
+                  className="sub-text"
+                  variants={pVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
                   {slideCard.tokenList && selectedNetworkId
                     ? `Select the type of token you would like to create a lock for
                              You can create multiple locks with different settings for each one.`
                     : "Choose the blockchain that your token you are locking is built on."}
-                </p>
+                </motion.p>
               </Row>
-              <Row className="m-0 mb-2">
-                {slideCard.tokenList && selectedNetworkId
-                  ? TOKEN_LIST.map((token: FieldListType) => {
-                      const icon = require(`../../../assets/images/token_${token.logo}_locked.png`)
-                        .default;
-                      const isSelected = selectedTokenId === token.id;
-                      return (
-                        <FieldCard
-                          key={token.id}
-                          {...token}
-                          isSelected={isSelected}
-                          icon={icon}
-                          onSelect={() => setSelectedTokenId(token.id)}
-                        />
-                      );
-                    })
-                  : NETWORK_LIST.map((network: FieldListType) => {
-                      const icon = require(`../../../assets/images/network_${network.logo}.png`)
-                        .default;
-                      const isSelected = wallets.selectedChain === network.id;
-                      return (
-                        <FieldCard
-                          key={network.id}
-                          {...network}
-                          isSelected={isSelected}
-                          icon={icon}
-                          onSelect={() => dispatch(setChain(network.id))}
-                        />
-                      );
-                    })}
-              </Row>
+              <motion.div
+                variants={selectVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                <Row className="m-0 mb-2">
+                  {slideCard.tokenList && selectedNetworkId
+                    ? TOKEN_LIST.map((token: FieldListType) => {
+                        const icon =
+                          require(`../../../assets/images/token_${token.logo}_locked.png`).default;
+                        const isSelected = selectedTokenId === token.id;
+                        return (
+                          <FieldCard
+                            key={token.id}
+                            {...token}
+                            isSelected={isSelected}
+                            icon={icon}
+                            onSelect={() => setSelectedTokenId(token.id)}
+                          />
+                        );
+                      })
+                    : NETWORK_LIST.map((network: FieldListType) => {
+                        const icon =
+                          require(`../../../assets/images/network_${network.logo}.png`).default;
+                        const isSelected = wallets.selectedChain === network.id;
+                        return (
+                          <FieldCard
+                            key={network.id}
+                            {...network}
+                            isSelected={isSelected}
+                            icon={icon}
+                            onSelect={() => dispatch(setChain(network.id))}
+                          />
+                        );
+                      })}
+                </Row>
+              </motion.div>
             </Col>
           </AuxCard.Body>
           <AuxCard.Footer>

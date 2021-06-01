@@ -12,6 +12,6 @@ export const useWalletState = (): any => {
 };
 
 export const useLockupState = (): any => {
-  const lockups = useSelector((state: State) => state);
+  const { lockups } = useSelector((state: State) => state);
   return lockups;
 };

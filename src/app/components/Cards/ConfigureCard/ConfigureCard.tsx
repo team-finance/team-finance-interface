@@ -4,18 +4,35 @@ import moment from "moment-timezone";
 import { Row, Col, Button } from "react-bootstrap";
 import SubCard from "./SubCard";
 import { DAY_DROPDOWN_LIST } from "../../../constants";
-import { useLockupState } from "app/state/hooks";
+import { useLockupState, useWalletState } from "app/state/hooks";
+import { getAllowance, handleApproval } from "app/state/lockups/helper";
+import { useAppDispatch } from "app/state";
 
 const ConfigureCard = () => {
   const [amount, setAmount] = useState<number>(0);
   const [dateCount, setDateCount] = useState<number>(90);
   const [unit, setUnit] = useState<number>(1);
   const [date, setDate] = useState(moment(Date()));
-  const { lockups } = useLockupState();
+  const { selectedToken } = useLockupState();
+  const { wallets } = useWalletState();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (wallets.isConnected && wallets.accounts[0]) {
+      dispatch(
+        getAllowance(
+          selectedToken,
+          wallets.accounts[0],
+          wallets.connectedWallet
+        )
+      );
+    }
+  }, [wallets.connectedWallet, wallets.accounts[0]]);
   useEffect(() => {
     getCalculatedDate(unit);
   }, [unit, dateCount]);
-
+  useEffect(() => {
+    console.log(selectedToken);
+  }, [selectedToken]);
   const getCalculatedDate = (id: number) => {
     const value = DAY_DROPDOWN_LIST[id];
     switch (value) {
@@ -44,12 +61,12 @@ const ConfigureCard = () => {
           name="Lock Amount"
           subValue="Balance: 0.00"
           value={amount}
-          token="UNI"
+          token={selectedToken.symbol}
           isUnit={false}
           isMax={true}
           onChange={setAmount}
         />
-        ;{/* })} */}
+        {/* })} */}
         <div className="lock-wrap">
           <img
             src={require("../../../../assets/images/lock.svg").default}
@@ -96,19 +113,28 @@ const ConfigureCard = () => {
           </Row>
         </div>
         <div className="btn-container">
-          <Button className="btn-approve">Approve Lock</Button>
+          <Button
+            className="btn-approve"
+            onClick={() =>
+              dispatch(
+                handleApproval(
+                  selectedToken,
+                  wallets.accounts[0],
+                  wallets.connectedWallet
+                )
+              )
+            }
+          >
+            Approve Lock
+          </Button>
           <Button className="btn-lock" disabled>
             Lock UNI
           </Button>
         </div>
         <div className="progress-bar-container">
-          <div className="circle">
-            <p>1</p>
-          </div>
+          <div className="circle">1</div>
           <div className="progress-bar"></div>
-          <div className="circle second">
-            <p>2</p>
-          </div>
+          <div className="circle second">2</div>
         </div>
       </Col>
     </AuxCard.Body>

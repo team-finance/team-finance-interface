@@ -20,10 +20,11 @@ const initialState: WalletState = {
   accounts: [],
   connectedWallet: null,
   currentProvider: null,
+  provider: null,
 };
 
 export const walletSlice = createSlice({
-  name: "Wallets",
+  name: "wallets",
   initialState,
   reducers: {
     setSelectedChain: (state, action) => {
@@ -31,6 +32,13 @@ export const walletSlice = createSlice({
     },
     setLoading: (state, action) => {
       state.loading = action.payload;
+    },
+    setConnectedWallet: (state, action) => {
+      state.connectedWallet = action.payload;
+    },
+    setCurrentProvider: (state, action) => {
+      state.currentProvider = action.payload.currentProvider;
+      state.provider = action.payload.provider;
     },
     connectWallet: (state, action) => {
       state.loading = action.payload.loading;
@@ -42,7 +50,12 @@ export const walletSlice = createSlice({
   },
 });
 
-export const { setSelectedChain, connectWallet } = walletSlice.actions;
+export const {
+  setSelectedChain,
+  connectWallet,
+  setConnectedWallet,
+  setCurrentProvider,
+} = walletSlice.actions;
 
 export const setChain = (chainId: number) => async (dispatch: any) => {
   dispatch(setSelectedChain(chainId));
@@ -71,36 +84,41 @@ export const checkNet = (net: any) => {
       return "Localhost";
   }
 };
-
-export const getProviders = (walletName: string) => {
-  if (walletName) {
-    let currentProvider: any;
-    let provider: any;
-    let EthProvider = (window as any).ethereum;
-    switch (walletName) {
-      case "metamask":
-        currentProvider = web3;
-        provider = EthProvider;
-        break;
-      case "walletConnect":
-        currentProvider = connectWalletWeb3;
-        provider = connectWalletProvider;
-        break;
-      case "CoinbaseWallet":
-        currentProvider = CoinbaseWeb3;
-        provider = EthProvider;
-        break;
-      case "Fortmatic":
-        currentProvider = formaticWeb3;
-        provider = fm;
-        break;
-      default:
-        currentProvider = web3;
-        provider = EthProvider;
-    }
-    return { currentProvider, provider };
+export const getProvider = (wallet: any) => {
+  let currentProvider: any;
+  let provider: any;
+  let EthProvider = (window as any).ethereum;
+  switch (wallet.name) {
+    case "metamask":
+      currentProvider = web3;
+      provider = EthProvider;
+      break;
+    case "walletConnect":
+      currentProvider = connectWalletWeb3;
+      provider = connectWalletProvider;
+      break;
+    case "CoinbaseWallet":
+      currentProvider = CoinbaseWeb3;
+      provider = EthProvider;
+      break;
+    case "Fortmatic":
+      currentProvider = formaticWeb3;
+      provider = fm;
+      break;
+    default:
+      currentProvider = web3;
+      provider = EthProvider;
   }
+  return { currentProvider, provider };
 };
+
+export const connectWalletHandler =
+  (wallet: any, networkType: any) => async (dispatch: any) => {
+    if (wallet) {
+      let { currentProvider } = await getProvider(wallet);
+      dispatch(handleWalletConnect(wallet, networkType, currentProvider));
+    }
+  };
 const metamaskEventHandler = (dispatch: any, provider: any) => {
   provider.on("chainChanged", (chainId: any) => {
     window.location.reload();
@@ -119,9 +137,6 @@ const metamaskEventHandler = (dispatch: any, provider: any) => {
     // console.log(message);
   });
   provider.on("disconnect", (code: number, reason: string) => {
-    // dispatch({
-    //   type: ActionType.WALLET_DISCONNECT,
-    // });
     dispatch(
       connectWallet({
         loading: false,
@@ -153,7 +168,6 @@ const handleMetamask = (accounts: any, dispatch: any, currentProvider: any) => {
                 isConnected: true,
                 accounts: [...res],
                 walletError: null,
-                currentProvider: currentProvider,
               })
             );
             metamaskEventHandler(dispatch, (window as any).ethereum);
@@ -171,10 +185,6 @@ const handleMetamask = (accounts: any, dispatch: any, currentProvider: any) => {
           });
       })
       .catch((e: any) => {
-        // dispatch({
-        //   type: ActionType.CONNECT_WALLET_ERROR,
-        //   payload: e.message,
-        // });
         dispatch(
           connectWallet({
             loading: false,
@@ -186,22 +196,18 @@ const handleMetamask = (accounts: any, dispatch: any, currentProvider: any) => {
       });
   } else {
     metamaskEventHandler(dispatch, (window as any).ethereum);
-    // dispatch({
-    //   type: ActionType.CONNECT_WALLET_SUCCESS,
-    //   payload: [...accounts],
-    // });
     dispatch(
       connectWallet({
         loading: false,
         isConnected: true,
         accounts: [...accounts],
         walletError: null,
-        currentProvider: currentProvider,
       })
     );
   }
 };
-export const connectWalletHandler =
+
+export const handleWalletConnect =
   (wallet: Wallet, chainId: number, currentProviders: any) =>
   async (dispatch: Dispatch) => {
     dispatch(
@@ -214,13 +220,13 @@ export const connectWalletHandler =
     );
     try {
       if (wallet) {
-        const prov: any = await getProviders(wallet.name);
-        console.log(prov);
+        dispatch(setConnectedWallet(wallet));
         try {
           let accounts: any;
           switch (wallet.name) {
             case "metamask":
               //// Ethererum ////
+              console.log("chainId", chainId);
               if (chainId === 1) {
                 try {
                   accounts = await web3Service.getAccounts();
@@ -312,7 +318,6 @@ export const connectWalletHandler =
                   );
                 });
                 const chainId = await web3.eth.chainId();
-                //   console.log(accounts, networkId, "ss", chainId);
               } catch (err) {
                 dispatch(
                   connectWallet({
