@@ -175,7 +175,7 @@ const TokenCard = (props: TokenCardType) => {
                 exit="exit"
               >
                 <motion.input
-                  whileFocus={{ scale: 1.05 }}
+                  // whileFocus={{ scale: 1.05 }}
                   type="text"
                   placeholder={
                     selectedTokenId === 2 ? "Address" : "Uniswap pair address"
