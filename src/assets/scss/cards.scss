@@ -420,11 +420,13 @@
     align-items: center;
 
     .circle {
-      width: 1.875rem;
+      width: 1.5625rem;
       height: 1.5625rem;
+      display: grid;
+      place-items: center;
       border-radius: 50%;
       background-color: #2e6cf8;
-
+      color: white;
       p {
         font-size: 1rem;
         font-weight: bold;

@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 const TokenCard = (props: TokenCardType) => {
   const { selectedTokenId, onSelect } = props;
   const dispatch = useAppDispatch();
-  const { lockups } = useLockupState();
+  const { fetchedToken } = useLockupState();
   const [fetchedList, setFetchedList] = useState([]);
   const [searchText, setSearchText] = useState<string>("");
 
@@ -26,19 +26,23 @@ const TokenCard = (props: TokenCardType) => {
   };
 
   useEffect(() => {
-    console.log("tpkl", lockups.fetchedToken);
-    setFetchedList(lockups.fetchedToken);
-  }, [lockups.fetchedToken]);
+    console.log("tpkl", fetchedToken);
+    setFetchedList(fetchedToken);
+  }, [fetchedToken]);
 
   const tokenList = (fetchedList: any) => {
     console.log("List", fetchedList);
-    return fetchedList.map((token: any) => (
-      <SubCard
-        key={token.address}
-        onSelect={handleSelect}
-        tokenDetail={token}
-      />
-    ));
+    if (fetchedList.length && fetchedList[0] !== null) {
+      return fetchedList.map((token: any) => (
+        <SubCard
+          key={token.address}
+          onSelect={handleSelect}
+          tokenDetail={token}
+        />
+      ));
+    } else {
+      return <></>;
+    }
   };
 
   const containerVariants = {

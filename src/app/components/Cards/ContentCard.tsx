@@ -27,7 +27,7 @@ const ContentCard = () => {
   const { settings } = useSettings();
   const { wallets } = useWalletState();
   useEffect(() => {
-    console.log(settings, wallets);
+    // console.log(settings, wallets);
   }, [settings, wallets]);
 
   const handleContinue = () => {

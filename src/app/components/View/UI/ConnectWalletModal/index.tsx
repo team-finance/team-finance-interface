@@ -105,11 +105,7 @@ const ConnectWalletModal: FC<Props> = (props) => {
                     className="btn-wallet-list"
                     onClick={() => {
                       dispatch(
-                        connectWalletHandler(
-                          wallet,
-                          wallets.selectedChain,
-                          wallets.currentProvider
-                        )
+                        connectWalletHandler(wallet, wallets.selectedChain)
                       );
                     }}
                     block

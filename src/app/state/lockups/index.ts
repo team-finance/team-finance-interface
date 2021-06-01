@@ -1,11 +1,13 @@
-import { LockupState } from "../types";
+import { LockApproveState, LockupState } from "../types";
 import { createSlice, Dispatch } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getCoreContract, getIERC20Contract } from "../../ethereum/coreLB";
-import { coreContractAddress } from "../../ethereum/index";
+
 const initialState: LockupState = {
   fetchedToken: [],
   selectedToken: "",
+  isLockupApproved: false,
+  isLockApproveLoading: false,
+  lockApproveStatus: LockApproveState.NULL,
 };
 
 export const lockupSlice = createSlice({
@@ -18,30 +20,53 @@ export const lockupSlice = createSlice({
     setselectedToken: (state, action) => {
       state.selectedToken = action.payload;
     },
+    toggleLockupApproved: (state, action) => {
+      state.isLockupApproved = action.payload;
+    },
+    toggleLockApproveLoading: (state, action) => {
+      state.isLockApproveLoading = action.payload;
+    },
+    setLockApproveStatus: (state, action) => {
+      state.lockApproveStatus = action.payload;
+    },
   },
 });
 
-export const { fetchTokenDetails, setselectedToken } = lockupSlice.actions;
-
-export const getAllowance = (address: any, currentProvider: any) => {
-  //   console.log(getCoreContract(coreContractAddress, currentProvider));
-  getIERC20Contract(
-    "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
-    currentProvider
-  ).methods.allowance(address, coreContractAddress);
-};
+export const {
+  fetchTokenDetails,
+  setselectedToken,
+  toggleLockupApproved,
+  setLockApproveStatus,
+} = lockupSlice.actions;
 
 export const fetchToken = (token: string) => async (dispatch: Dispatch) => {
-  axios
-    .get(`https://api.ethplorer.io/getAddressInfo/${token}`, {
-      params: {
-        apiKey: process.env.REACT_APP_ETHPLORER_API_KEY,
-        showETHTotals: "true",
-      },
-    })
+  axios({
+    method: "post",
+    url: `https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2`,
+    data: {
+      query: `{
+          token(id:"${token}"){
+          id
+          symbol
+          name
+          decimals
+          derivedETH
+          tradeVolume
+          totalLiquidity
+          tradeVolumeUSD
+          untrackedVolumeUSD
+          __typename
+          txCount    
+        }
+}`,
+    },
+  })
     .then((res) => {
-      console.log(res.data.tokenInfo);
-      dispatch(fetchTokenDetails(res.data.tokenInfo));
+      console.log(res.data.token);
+      dispatch(fetchTokenDetails(res.data.data.token));
+    })
+    .catch((e) => {
+      dispatch(fetchTokenDetails([]));
     });
 };
 
