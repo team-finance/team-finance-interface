@@ -29,7 +29,7 @@ export const getAllowance = (address: any, currentProvider: any) => {
 
 export const fetchToken = (token: string) => async (dispatch: Dispatch) => {
   axios
-    .get(`https://kovan-api.ethplorer.io/getAddressInfo/${token}`, {
+    .get(`https://api.ethplorer.io/getAddressInfo/${token}`, {
       params: {
         apiKey: process.env.REACT_APP_ETHPLORER_API_KEY,
         showETHTotals: "true",
