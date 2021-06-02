@@ -1,7 +1,7 @@
 import { toFixed } from "app/helpers/common";
 import { Wallet } from "app/helpers/types";
 import { Dispatch } from "redux";
-import { connectWallet } from ".";
+import { connectWallet, setAccountBalance } from ".";
 import {
   CoinbaseProvider,
   CoinbaseWeb3,
@@ -65,3 +65,42 @@ export const getProvider = (wallet: any) => {
   }
   return { currentProvider, provider };
 };
+
+export const getAccountBalance =
+  (selectedAccount: string, currentProvider: any, networkId?: any) =>
+  async (dispatch: Dispatch) => {
+    try {
+      let balance: any;
+      if (networkId && networkId === 2) {
+        balance = await (window as any).BinanceChain.request({
+          method: "eth_getBalance",
+          params: [selectedAccount, "latest"],
+        });
+      } else {
+        balance = await web3Service.getBalance(selectedAccount);
+        if (currentProvider === CoinbaseWeb3) {
+          balance = await currentProvider.eth.getBalance(selectedAccount);
+        }
+      }
+      let ethBal = web3Service.getWei(balance, "ether");
+      let ethBalDeci = toFixed(parseFloat(ethBal), 3);
+      dispatch(setAccountBalance(ethBalDeci));
+      // dispatch({
+      //   type: ActionType.ACCOUNT_BALANCE_SUCCESS,
+      //   payload: ethBalDeci,
+      //   fullAccountBalance: ethBal,
+      // });
+    } catch (e) {
+      dispatch(setAccountBalance(""));
+
+      // errorHandler.report(e);
+      // dispatch({
+      //   type: ActionType.ACCOUNT_BALANCE_SUCCESS,
+      //   payload: "",
+      //   fullAccountBalance: "",
+      // });
+      // dispatch({
+      //   type: ActionType.WALLET_DISCONNECT,
+      // });
+    }
+  };

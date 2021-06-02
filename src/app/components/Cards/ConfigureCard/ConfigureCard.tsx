@@ -6,7 +6,8 @@ import { Row, Col, Button, Spinner, ProgressBar } from "react-bootstrap";
 import SubCard from "./SubCard";
 import { DAY_DROPDOWN_LIST } from "../../../constants";
 import { useLockupState, useWalletState } from "app/state/hooks";
-import { getAllowance, handleApproval } from "app/state/lockups/helper";
+import { getAllowance, handleApproval } from "app/state/lockups/approve";
+import { lockupHandling } from "app/state/lockups/lockup";
 import { useAppDispatch } from "app/state";
 
 const ConfigureCard = () => {
@@ -20,6 +21,15 @@ const ConfigureCard = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (wallets.isConnected && wallets.accounts[0]) {
+      // dispatch(
+      //   lockupHandling(
+      //     wallets.accounts[0],
+      //     selectedToken,
+      //     "100000000000",
+      //     "1622617505000",
+      //     wallets.connectedWallet
+      //   )
+      // );
       dispatch(
         getAllowance(
           selectedToken,
@@ -141,6 +151,17 @@ const ConfigureCard = () => {
           <Button
             className={isLockupApproved ? "btn-approve" : "btn-lock"}
             disabled={!isLockupApproved}
+            onClick={() => {
+              dispatch(
+                lockupHandling(
+                  wallets.accounts[0],
+                  selectedToken,
+                  "1",
+                  "1622617505000",
+                  wallets.connectedWallet
+                )
+              );
+            }}
           >
             Lock UNI
           </Button>
