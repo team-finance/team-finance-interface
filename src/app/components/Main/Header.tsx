@@ -115,9 +115,27 @@ const Header: FC<Props> = ({ onConnect }) => {
         {/* <Button onClick={onConnect}>Connect Wallet</Button> */}
         {(wallets.accounts && wallets.accounts.length) ||
         wallets.isConnected ? (
-          <>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "8%",
+            }}
+          >
             {wallets?.accountBalance && (
-              <AccountBalance bal={wallets.accountBalance} />
+              <div
+                style={{
+                  display: "flex",
+                  backgroundColor: "",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "20px",
+                  color: "white",
+                  border: "0.0625rem solid #ffffff",
+                }}
+              >
+                <AccountBalance bal={wallets.accountBalance} />
+              </div>
             )}
             <AddressTab
               theme={settings.isDark}
@@ -130,7 +148,7 @@ const Header: FC<Props> = ({ onConnect }) => {
               }
               address={wallets.accounts[0]}
             />
-          </>
+          </div>
         ) : (
           <ConnectWalletButton
             theme={settings.isDark}
