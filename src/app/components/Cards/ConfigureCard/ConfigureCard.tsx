@@ -12,7 +12,7 @@ import { useAppDispatch } from "app/state";
 import { getUserTokenBalance } from "app/state/walletConnect/helper";
 import TransactionPopup from "app/components/TransactionLoader";
 import AlertToast from "app/components/View/UI/AlertToast";
-import { LockActionStatus } from "app/state/types";
+import { LockActionStatus, LockApproveState } from "app/state/types";
 
 const ConfigureCard = () => {
   const [amount, setAmount] = useState<number>(0);
@@ -20,14 +20,35 @@ const ConfigureCard = () => {
   const [unit, setUnit] = useState<number>(1);
   const [date, setDate] = useState(moment(Date()));
   const [transShow, setTransShow] = useState<boolean>(false);
+  const [progress, setProgress] = useState(0);
   const {
     selectedToken,
+    lockApproveStatus,
     isLockupApproved,
     isLockApproveLoading,
     lockActionStatus,
   } = useLockupState();
   const { wallets } = useWalletState();
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (isLockupApproved) {
+      setProgress(100);
+    } else {
+      switch (lockApproveStatus) {
+        case LockApproveState.LOADING:
+          setProgress(25);
+          break;
+        case LockApproveState.TRANS_RECEIVED:
+          setProgress(75);
+          break;
+        case LockApproveState.SUCCESS:
+          setProgress(100);
+          break;
+        default:
+          setProgress(0);
+      }
+    }
+  }, [lockApproveStatus, isLockupApproved]);
   useEffect(() => {
     if (wallets.isConnected && wallets.accounts[0]) {
       dispatch(
@@ -183,9 +204,9 @@ const ConfigureCard = () => {
           <div className="circle">1</div>
           {/* <div className="progress-bar"></div> */}
           <div className="progress-bar">
-            <ProgressBar now={60} />
+            <ProgressBar now={progress} />
           </div>
-          <div className="circle-second">2</div>
+          <div className={`circle ${!isLockupApproved && " inactive"}`}>2</div>
         </div>
       </Col>
       <Col>

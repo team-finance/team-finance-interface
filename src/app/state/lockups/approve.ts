@@ -26,6 +26,8 @@ export const getAllowance =
           console.log(allowance);
 
           if (allowance === "0") {
+            dispatch(setLockApproveStatus(LockApproveState.NULL));
+
             dispatch(toggleLockupApproved(false));
           } else {
             dispatch(toggleLockupApproved(true));
