@@ -28,7 +28,7 @@ const ConfigureCard = () => {
         getUserTokenBalance(
           selectedToken,
           wallets.accounts[0],
-          wallets.connectedWalelt
+          wallets.connectedWallet
         )
       );
       dispatch(
@@ -72,7 +72,7 @@ const ConfigureCard = () => {
         {/* {lockups.fetchedToken.map((token: any) => { */}
         <SubCard
           name="Lock Amount"
-          subValue="Balance: 0.00"
+          subValue={`Balance:${wallets.userTokenBalance} `}
           value={amount}
           token={selectedToken.symbol}
           isUnit={false}

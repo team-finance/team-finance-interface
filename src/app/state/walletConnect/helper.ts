@@ -13,7 +13,7 @@ import {
 } from "../../utils/web3";
 import { web3Service } from "../../utils/web3Service";
 import BigNumber from "bignumber.js";
-import {getIERC20Contract, IERC20} from '../../ethereum/coreLB'; 
+import { getIERC20Contract } from "../../ethereum/coreLB";
 export const checkNet = (net: any) => {
   switch (net) {
     case 1:
@@ -86,36 +86,20 @@ export const getAccountBalance =
       let ethBal = web3Service.getWei(balance, "ether");
       let ethBalDeci = toFixed(parseFloat(ethBal), 3);
       dispatch(setAccountBalance(ethBalDeci));
-      // dispatch({
-      //   type: ActionType.ACCOUNT_BALANCE_SUCCESS,
-      //   payload: ethBalDeci,
-      //   fullAccountBalance: ethBal,
-      // });
     } catch (e) {
       dispatch(setAccountBalance(""));
-
-      // errorHandler.report(e);
-      // dispatch({
-      //   type: ActionType.ACCOUNT_BALANCE_SUCCESS,
-      //   payload: "",
-      //   fullAccountBalance: "",
-      // });
-      // dispatch({
-      //   type: ActionType.WALLET_DISCONNECT,
-      // });
     }
   };
 
-  export const getUserTokenBalance = (
-    selectedToken: any,accounts: any,wallet: any
-  ) => 
-    async (dispatch: Dispatch) => {    
-      console.log("Calling", selectedToken, accounts, wallet)        
-      try {
-    const { currentProvider } = await getProvider(wallet);
+export const getUserTokenBalance =
+  (selectedToken: any, accounts: any, wallet: any) =>
+  async (dispatch: Dispatch) => {
+    try {
+      const { currentProvider } = await getProvider(wallet);
 
-        getIERC20Contract(selectedToken.id, currentProvider).methods.balanceOf(accounts).call((e: any, r: any) => {
-          console.log("AMO", r, e)
+      getIERC20Contract(selectedToken.id, currentProvider)
+        .methods.balanceOf(accounts)
+        .call((e: any, r: any) => {
           if (!e) {
             let amount = r;
             const decimalAmount = new BigNumber(amount)
@@ -124,14 +108,14 @@ export const getAccountBalance =
             let fullAmount = new BigNumber(decimalAmount)
               .toFixed(3, 1)
               .toString();
-              console.log(decimalAmount)
+            console.log(decimalAmount);
             dispatch(setUserTokenBalance(fullAmount));
             // });
           } else {
-            console.log("err", e, r)
+            dispatch(setUserTokenBalance(""));
           }
         });
-      } catch (e) {
-        dispatch(setUserTokenBalance(""));
-      }
+    } catch (e) {
+      dispatch(setUserTokenBalance(""));
     }
+  };
