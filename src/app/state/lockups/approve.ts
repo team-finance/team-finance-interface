@@ -57,7 +57,7 @@ export const handleApproval =
       })
       .on("error", (err: any, res: any) => {
         console.log("approval_Err", err);
-        dispatch(toggleLockupApproved(false));
+        dispatch(toggleLockApproveLoading(false));
         dispatch(
           setLockApproveStatus(
             res === undefined
