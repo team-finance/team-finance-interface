@@ -456,13 +456,33 @@
   // }
 }
 
-// .progress-bar-container {
-//   background-color: yellow;
-//   display: flex;
-// }
-// .circle {
-// }
-// .progress-bar {
-// }
-// .circle-second {
-// }
+.progress-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100;
+}
+.circle {
+  width: 1.5625rem;
+  height: 1.5625rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background-color: #2e6cf8;
+  color: white;
+}
+.progress-bar {
+  height: 0.2rem;
+  background-color: #edeef2;
+  width: 16.75rem;
+  border-radius: 10px;
+}
+.circle-second {
+  width: 1.5625rem;
+  height: 1.5625rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background-color: #2e6cf8;
+  color: white;
+}
