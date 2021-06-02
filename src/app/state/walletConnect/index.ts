@@ -12,7 +12,7 @@ import {
 } from "app/utils/web3";
 import { web3Service } from "app/utils/web3Service";
 import { WalletState } from "../types";
-import { getProvider } from "./helper";
+import { getAccountBalance, getProvider } from "./helper";
 const initialState: WalletState = {
   isConnected: false,
   selectedChain: 1,
@@ -22,6 +22,7 @@ const initialState: WalletState = {
   connectedWallet: null,
   currentProvider: null,
   provider: null,
+  accountBalance: "",
 };
 
 export const walletSlice = createSlice({
@@ -48,6 +49,9 @@ export const walletSlice = createSlice({
       state.walletError = action.payload.walletError;
       state.currentProvider = action.payload.currentProvider;
     },
+    setAccountBalance: (state, action) => {
+      state.accountBalance = action.payload;
+    },
   },
 });
 
@@ -56,6 +60,7 @@ export const {
   connectWallet,
   setConnectedWallet,
   setCurrentProvider,
+  setAccountBalance,
 } = walletSlice.actions;
 
 export const setChain = (chainId: number) => async (dispatch: any) => {
@@ -120,6 +125,7 @@ const handleMetamask = (accounts: any, dispatch: any, currentProvider: any) => {
                 walletError: null,
               })
             );
+            dispatch(getAccountBalance(res[0], currentProvider));
             metamaskEventHandler(dispatch, (window as any).ethereum);
           })
           .catch((e: any) => {
@@ -145,6 +151,8 @@ const handleMetamask = (accounts: any, dispatch: any, currentProvider: any) => {
         );
       });
   } else {
+    dispatch(getAccountBalance(accounts[0], currentProvider));
+
     metamaskEventHandler(dispatch, (window as any).ethereum);
     dispatch(
       connectWallet({

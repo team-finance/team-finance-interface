@@ -19,6 +19,7 @@ export interface WalletState {
   connectedWallet: any;
   currentProvider: any;
   provider: any;
+  accountBalance: string;
 }
 
 export interface LockupState {
