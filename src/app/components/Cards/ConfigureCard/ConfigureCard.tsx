@@ -10,6 +10,8 @@ import { getAllowance, handleApproval } from "app/state/lockups/approve";
 import { lockupHandling } from "app/state/lockups/lockup";
 import { useAppDispatch } from "app/state";
 import { getUserTokenBalance } from "app/state/walletConnect/helper";
+import TransactionPopup from "app/components/TransactionLoader";
+import AlertToast from "app/components/AlertToast";
 
 const ConfigureCard = () => {
   const [amount, setAmount] = useState<number>(0);
@@ -22,7 +24,13 @@ const ConfigureCard = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (wallets.isConnected && wallets.accounts[0] && selectedToken) {
-      dispatch(getUserTokenBalance(selectedToken, wallets.accounts[0], wallets.connectedWalelt))
+      dispatch(
+        getUserTokenBalance(
+          selectedToken,
+          wallets.accounts[0],
+          wallets.connectedWalelt
+        )
+      );
       dispatch(
         getAllowance(
           selectedToken,
@@ -167,11 +175,15 @@ const ConfigureCard = () => {
         <div className="progress-bar-container">
           <div className="circle">1</div>
           {/* <div className="progress-bar"></div> */}
-          <div>
-            <ProgressBar now={100} />
+          <div className="progress-bar">
+            <ProgressBar now={60} />
           </div>
-          <div className="circle second">2</div>
+          <div className="circle-second">2</div>
         </div>
+      </Col>
+      <Col>
+        <TransactionPopup />
+        {/* <AlertToast /> */}
       </Col>
     </AuxCard.Body>
   );
