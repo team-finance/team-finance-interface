@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Card } from "react-bootstrap";
 import { ConfigureSubCardType } from "../../../constants/types";
 import { DAY_DROPDOWN_LIST } from "../../../constants";
-import { setAccountBalance } from "app/state/walletConnect";
 import {  useWalletState } from "app/state/hooks";
 const SubCard = (props: ConfigureSubCardType) => {
   const {

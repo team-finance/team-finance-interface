@@ -97,7 +97,7 @@ const ConnectWalletModal: FC<Props> = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Container>
-            {getWalletList(wallets.selectedChain).map((wallet: any) => (
+            {getWalletList(wallets.selectedChain).map((wallet: any,) => (
               <Row className=" px-3 pt-3" key={wallet.id}>
                 <Col>
                   <Button
@@ -105,7 +105,7 @@ const ConnectWalletModal: FC<Props> = (props) => {
                     className="btn-wallet-list"
                     onClick={() => {
                       dispatch(
-                        connectWalletHandler(wallet, wallets.selectedChain)
+                        connectWalletHandler(wallet, wallets.selectedChain,wallets.selectedNetworkId)
                       );
                     }}
                     block

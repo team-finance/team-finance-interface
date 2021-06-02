@@ -16,9 +16,21 @@ export type AddressTabProps = {
   address: string;
 };
 
-export type AccountBalanceProps = {
+export type AccountBalanceP = {
   accountBalance: string | number;
   tokenType: any;
   className?: string;
   theme: string;
+};
+
+export type ActiveNetworkP = {
+  activeNetWork: string;
+};
+
+export type NetworkInfoTabProps = {
+  onClick: () => void;
+  theme: string;
+  logo: string;
+  label: string;
+  className?: string;
 };

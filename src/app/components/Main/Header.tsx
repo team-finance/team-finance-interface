@@ -2,24 +2,20 @@ import React, { FC } from "react";
 import { Row, Col, Button, Spinner } from "react-bootstrap";
 import teamLogo from "assets/images/team-logo-white.png";
 import { capitalize, shortenAddress } from "../../helpers/common";
-import { HEADER_LIST } from "../../constants";
+import { HEADER_LIST,NETWORK_LIST } from "../../constants";
 import { NavLink } from "react-router-dom";
 import { useSettings, useWalletState } from "app/state/hooks";
-import {
-  AddressTabProps,
-  ConnectWalletButtonProps,
-  AccountBalanceProps,
-} from "app/helpers/types";
+import { AddressTabProps, ConnectWalletButtonProps ,NetworkInfoTabProps} from "app/helpers/types";
+
 const activeNetworkBaseCurrency = (selectedNetworkId: any) => {
-  if (selectedNetworkId === 1) {
-    return "ETH";
-  } else if (selectedNetworkId === 2) {
-    return "BNB";
-  } else if (selectedNetworkId === 3) {
+  if (selectedNetworkId === 137 || selectedNetworkId === 80001) {
     return "MATIC";
+  } else if (selectedNetworkId === 56 || selectedNetworkId === 97) {
+    return "BNB";
+  } else {
+    return "ETH";
   }
 };
-// import settings from "app/state/settings";
 interface Props {
   onConnect: () => void;
 }
@@ -59,6 +55,33 @@ export const ConnectWalletButton = ({
   );
 };
 
+
+
+export const NetworkInfoTab = ({
+  theme,
+  onClick,
+  logo,
+  label,
+  className,
+}: NetworkInfoTabProps) => {
+  return (
+    <button
+      className={`d-flex btn ${
+        theme === "dark" && "btn-dark"
+      } btn-custom-secondary btn-round-switch  ${className ? className : ""}`}
+      onClick={() => {
+        onClick();
+      }}
+    >
+      {/* <img
+        src={require(`../../../../assets/${logo}.png`).default}
+        alt={label}
+      /> */}
+      <span>{capitalize(label)}</span>
+    </button>
+  );
+};
+
 export const AddressTab = ({ theme, onClick, address }: AddressTabProps) => {
   return (
     <button
@@ -72,13 +95,29 @@ export const AddressTab = ({ theme, onClick, address }: AddressTabProps) => {
   );
 };
 interface AccountBalanceP {
-  bal: any;
+  accountBalance: any;
+  tokenType: any;
 }
-export const AccountBalance: FC<AccountBalanceP> = ({ bal }) => {
+export const AccountBalance: FC<AccountBalanceP> = ({
+  accountBalance,
+  tokenType,
+}) => {
   return (
     <div className={` btn-custom-secondary btn-round-switch acc-balance`}>
-      <span className="mr-1">{bal}</span>
-      {/* <span className="currency">{activeNetworkBaseCurrency(tokenType)}</span> */}
+      <span className="mr-1">{accountBalance}</span>
+      <span className="currency">{activeNetworkBaseCurrency(tokenType)}</span>
+    </div>
+  );
+};
+
+interface ActiveNetworkP {
+  activeNetwork: any;
+}
+
+export const ActiveNetwork: FC<ActiveNetworkP> = ({ activeNetwork }) => {
+  return (
+    <div className={` btn-custom-secondary btn-round-switch acc-balance`}>
+      <span className="mr-1">{activeNetwork}</span>
     </div>
   );
 };
@@ -86,6 +125,10 @@ export const AccountBalance: FC<AccountBalanceP> = ({ bal }) => {
 const Header: FC<Props> = ({ onConnect }) => {
   const { wallets } = useWalletState();
   const { settings } = useSettings();
+  const networkInfo = NETWORK_LIST.filter(
+    (item) => item.id === wallets.selectedNetworkId
+  )[0];
+
 
   return (
     <Row className="main-header m-0">
@@ -112,7 +155,6 @@ const Header: FC<Props> = ({ onConnect }) => {
         </Row>
       </Col>
       <Col className="btn-connect" sm={3} md={3} lg={3}>
-        {/* <Button onClick={onConnect}>Connect Wallet</Button> */}
         {(wallets.accounts && wallets.accounts.length) ||
         wallets.isConnected ? (
           <div
@@ -122,6 +164,12 @@ const Header: FC<Props> = ({ onConnect }) => {
               gap: "8%",
             }}
           >
+            {wallets?.activeNetWork && (
+              <ActiveNetwork
+                activeNetwork={wallets.activeNetWork}
+              />
+            )}
+
             {wallets?.accountBalance && (
               <div
                 style={{
@@ -134,7 +182,10 @@ const Header: FC<Props> = ({ onConnect }) => {
                   border: "0.0625rem solid #ffffff",
                 }}
               >
-                <AccountBalance bal={wallets.accountBalance} />
+                <AccountBalance
+                  accountBalance={wallets.accountBalance}
+                  tokenType={wallets.networkId}
+                />
               </div>
             )}
             <AddressTab

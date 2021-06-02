@@ -16,7 +16,6 @@ import { LockActionStatus, LockApproveState } from "app/state/types";
 
 const ConfigureCard = () => {
   const [amount, setAmount] = useState<number>(0);
-  const [maxBalance, setMaxBalance] = useState<number>(0);
   const [dateCount, setDateCount] = useState<number>(90);
   const [unit, setUnit] = useState<number>(1);
   const [date, setDate] = useState(moment(Date()));

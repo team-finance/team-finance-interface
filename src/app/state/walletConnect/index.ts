@@ -12,18 +12,23 @@ import {
 } from "app/utils/web3";
 import { web3Service } from "app/utils/web3Service";
 import { WalletState } from "../types";
-import { getAccountBalance, getProvider } from "./helper";
+import { getAccountBalance, getProvider,getSelectedNetworkId } from "./helper";
 const initialState: WalletState = {
   isConnected: false,
   selectedChain: 1,
   loading: false,
   walletError: null,
   accounts: [],
-  connectedWallet: null,
+  connectedWallet: localStorage.getItem("walletConnected"),
   currentProvider: null,
   provider: null,
   accountBalance: "",
   userTokenBalance: "",
+  selectedNetworkId: localStorage.getItem("activeNetworkId")
+  ? parseInt(localStorage.getItem("activeNetworkId") || "1")
+  : 1,
+  networkId: "1",
+
 };
 
 export const walletSlice = createSlice({
@@ -53,8 +58,14 @@ export const walletSlice = createSlice({
     setAccountBalance: (state, action) => {
       state.accountBalance = action.payload;
     },
+    setSelectedNetworkId: (state, action) => {
+      state.selectedNetworkId = action.payload;
+    },
     setUserTokenBalance: (state, action) => {
       state.userTokenBalance = action.payload;
+    },
+    setNetworkId: (state, action) => {
+      state.networkId = action.payload;
     },
   },
 });
@@ -66,6 +77,8 @@ export const {
   setCurrentProvider,
   setAccountBalance,
   setUserTokenBalance,
+  setSelectedNetworkId,
+  setNetworkId,
 } = walletSlice.actions;
 
 export const setChain = (chainId: number) => async (dispatch: any) => {
@@ -73,10 +86,11 @@ export const setChain = (chainId: number) => async (dispatch: any) => {
 };
 
 export const connectWalletHandler =
-  (wallet: any, networkType: any) => async (dispatch: any) => {
+  (wallet: any, networkType: any, selectedNetworkId: any) => async (dispatch: any) => {
     if (wallet) {
       let { currentProvider } = await getProvider(wallet);
-      dispatch(handleWalletConnect(wallet, networkType, currentProvider));
+      // let {selectedNetworkId} = await getSelectedNetworkId(wallet);
+      dispatch(handleWalletConnect(wallet, networkType, currentProvider,));
     }
   };
 const metamaskEventHandler = (dispatch: any, provider: any) => {
@@ -108,7 +122,7 @@ const metamaskEventHandler = (dispatch: any, provider: any) => {
   });
 };
 
-const handleMetamask = (accounts: any, dispatch: any, currentProvider: any) => {
+const handleMetamask = (accounts: any, dispatch: any, currentProvider: any,) => {
   if (
     window &&
     !(window as any).ethereum.selectedAddress &&
@@ -130,7 +144,7 @@ const handleMetamask = (accounts: any, dispatch: any, currentProvider: any) => {
                 walletError: null,
               })
             );
-            dispatch(getAccountBalance(res[0], currentProvider));
+            dispatch(getAccountBalance(res[0], currentProvider,));
             metamaskEventHandler(dispatch, (window as any).ethereum);
           })
           .catch((e: any) => {
@@ -156,7 +170,7 @@ const handleMetamask = (accounts: any, dispatch: any, currentProvider: any) => {
         );
       });
   } else {
-    dispatch(getAccountBalance(accounts[0], currentProvider));
+    dispatch(getAccountBalance(accounts[0], currentProvider,));
 
     metamaskEventHandler(dispatch, (window as any).ethereum);
     dispatch(
@@ -171,7 +185,7 @@ const handleMetamask = (accounts: any, dispatch: any, currentProvider: any) => {
 };
 
 export const handleWalletConnect =
-  (wallet: Wallet, chainId: number, currentProviders: any) =>
+  (wallet: Wallet, chainId: number, currentProviders: any,) =>
   async (dispatch: Dispatch) => {
     dispatch(
       connectWallet({
@@ -193,7 +207,7 @@ export const handleWalletConnect =
               if (chainId === 1) {
                 try {
                   accounts = await web3Service.getAccounts();
-                  handleMetamask(accounts, dispatch, currentProviders);
+                  handleMetamask(accounts, dispatch, currentProviders,);
                 } catch (e) {
                   console.log(e);
                 }
@@ -227,7 +241,7 @@ export const handleWalletConnect =
                       accounts = await web3Service.getAccounts();
 
                       // if (accounts) {
-                      handleMetamask(accounts, dispatch, currentProviders);
+                      handleMetamask(accounts, dispatch, currentProviders,);
                       // }
 
                       return true;
@@ -247,7 +261,7 @@ export const handleWalletConnect =
               } else if (chainId === 3) {
                 accounts = await web3Service.getAccounts();
 
-                handleMetamask(accounts, dispatch, currentProviders);
+                handleMetamask(accounts, dispatch, currentProviders,);
               }
               break;
             case "binanceWallet":

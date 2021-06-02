@@ -30,6 +30,8 @@ export interface WalletState {
   provider: any;
   accountBalance: string;
   userTokenBalance: any;
+  selectedNetworkId: number;
+  networkId: any;
 }
 
 export interface LockupState {

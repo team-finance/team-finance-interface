@@ -14,12 +14,12 @@ const App = () => {
     // fetchToken("");
     if (wallets.isConnected && wallets.accounts[0]) {
       dispatch(
-        connectWalletHandler(wallets.connectedWallet, wallets.selectedChain)
+        connectWalletHandler(wallets.connectedWallet, wallets.selectedChain,wallets.selectedNetworkId)
       );
       // getAllowance(wallets.accounts[0], wallets.currentProvider);
     }
     dotEnv.config();
-  }, [wallets.connectedWallet, wallets.selectedChain]);
+  }, [wallets.connectedWallet, wallets.selectedChain, wallets.selectedNetworkId]);
   return <Layout />;
 };
 
