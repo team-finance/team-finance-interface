@@ -18,6 +18,7 @@ const ConfigureCard = () => {
   const [dateCount, setDateCount] = useState<number>(90);
   const [unit, setUnit] = useState<number>(1);
   const [date, setDate] = useState(moment(Date()));
+  const [transShow, setTransShow] = useState<boolean>(true);
   const { selectedToken, isLockupApproved, isLockApproveLoading } =
     useLockupState();
   const { wallets } = useWalletState();
@@ -182,7 +183,15 @@ const ConfigureCard = () => {
         </div>
       </Col>
       <Col>
-        <TransactionPopup />
+        {transShow && (
+          <TransactionPopup
+            handleClose={() => {
+              setTransShow(false);
+            }}
+            mode="failure"
+          />
+        )}
+
         {/* <AlertToast /> */}
       </Col>
     </AuxCard.Body>
