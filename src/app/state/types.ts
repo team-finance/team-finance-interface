@@ -20,6 +20,7 @@ export interface WalletState {
   currentProvider: any;
   provider: any;
   accountBalance: string;
+  userTokenBalance: any;
 }
 
 export interface LockupState {

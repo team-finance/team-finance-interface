@@ -1,7 +1,7 @@
 import { toFixed } from "app/helpers/common";
 import { Wallet } from "app/helpers/types";
 import { Dispatch } from "redux";
-import { connectWallet, setAccountBalance } from ".";
+import { connectWallet, setAccountBalance, setUserTokenBalance } from ".";
 import {
   CoinbaseProvider,
   CoinbaseWeb3,
@@ -12,7 +12,8 @@ import {
   web3,
 } from "../../utils/web3";
 import { web3Service } from "../../utils/web3Service";
-
+import BigNumber from "bignumber.js";
+import {getIERC20Contract, IERC20} from '../../ethereum/coreLB'; 
 export const checkNet = (net: any) => {
   switch (net) {
     case 1:
@@ -104,3 +105,33 @@ export const getAccountBalance =
       // });
     }
   };
+
+  export const getUserTokenBalance = (
+    selectedToken: any,accounts: any,wallet: any
+  ) => 
+    async (dispatch: Dispatch) => {    
+      console.log("Calling", selectedToken, accounts, wallet)        
+      try {
+    const { currentProvider } = await getProvider(wallet);
+
+        getIERC20Contract(selectedToken.id, currentProvider).methods.balanceOf(accounts).call((e: any, r: any) => {
+          console.log("AMO", r, e)
+          if (!e) {
+            let amount = r;
+            const decimalAmount = new BigNumber(amount)
+              .dividedBy(Math.pow(10, selectedToken.decimals))
+              .toString();
+            let fullAmount = new BigNumber(decimalAmount)
+              .toFixed(3, 1)
+              .toString();
+              console.log(decimalAmount)
+            dispatch(setUserTokenBalance(fullAmount));
+            // });
+          } else {
+            console.log("err", e, r)
+          }
+        });
+      } catch (e) {
+        dispatch(setUserTokenBalance(""));
+      }
+    }
