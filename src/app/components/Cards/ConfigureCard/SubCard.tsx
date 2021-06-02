@@ -43,7 +43,7 @@ const SubCard = (props: ConfigureSubCardType) => {
           <Col className="p-0 value-wrap" sm={6} md={6} lg={6}>
             <input
               type="number"
-              value={value || maxValue}
+              value={value || maxBalance}
               className="form-control field-input"
               placeholder="0"
               onChange={(e) => onChange(parseInt(e.target.value))}
