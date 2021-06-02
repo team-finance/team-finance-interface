@@ -10,6 +10,7 @@ import {
   toggleLockupApproved,
   setLockApproveStatus,
   toggleLockApproveLoading,
+  setLockActionStatus,
 } from "./index";
 
 export const getAllowance =
@@ -57,6 +58,7 @@ export const handleApproval =
       })
       .on("error", (err: any, res: any) => {
         console.log("approval_Err", err);
+        dispatch(toggleLockApproveLoading(false));
         dispatch(
           setLockApproveStatus(
             res === undefined

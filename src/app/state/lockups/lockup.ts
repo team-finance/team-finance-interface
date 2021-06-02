@@ -1,6 +1,8 @@
 import { web3Service } from "app/utils/web3Service";
 import { Dispatch } from "redux";
+import { setLockActionStatus } from ".";
 import { getCoreContract } from "../../ethereum/coreLB";
+import { LockActionStatus, LockApproveState } from "../types";
 import { getProvider } from "../walletConnect/helper";
 
 export const lockupHandling =
@@ -12,6 +14,8 @@ export const lockupHandling =
     wallet: any
   ) =>
   async (dispatch: Dispatch) => {
+    dispatch(setLockActionStatus(LockActionStatus.NULL));
+
     const { currentProvider } = await getProvider(wallet);
     let fullAmount = web3Service.getValue(
       false,
@@ -22,10 +26,22 @@ export const lockupHandling =
     getCoreContract(currentProvider)
       .methods.lockTokens(tokenAddresss.id, fullAmount, unlockTime)
       .send({ from: address, gas: 30000 })
+      .on("receipt", (res: any) => {
+        console.log("receipt", res);
+        dispatch(setLockActionStatus(LockActionStatus.SUCCESS));
+      })
       .on("transactionHash", (hash: any) => {
         console.log(hash);
+        dispatch(setLockActionStatus(LockActionStatus.TRANS_RECEIVED));
       })
       .on("error", (err: any, res: any) => {
         console.log(err);
+        dispatch(
+          setLockActionStatus(
+            res === undefined
+              ? LockActionStatus.REJECTED
+              : LockActionStatus.INVALID
+          )
+        );
       });
   };

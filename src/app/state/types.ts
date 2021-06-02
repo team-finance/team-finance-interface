@@ -7,6 +7,15 @@ export enum LockApproveState {
   INVALID,
 }
 
+export enum LockActionStatus {
+  LOADING,
+  NULL,
+  TRANS_RECEIVED,
+  REJECTED,
+  SUCCESS,
+  INVALID,
+}
+
 export interface SettingsState {
   isDark: boolean;
 }
@@ -29,6 +38,7 @@ export interface LockupState {
   isLockupApproved: boolean;
   isLockApproveLoading: boolean;
   lockApproveStatus: LockApproveState;
+  lockActionStatus: LockActionStatus;
 }
 
 export interface State {
