@@ -16,11 +16,3 @@ export const getCoreContract = (web3: any) => {
 export const getIERC20Contract = (address: string, web3: any) => {
   return getContract(IERC20ABI.abi, address, web3);
 };
-
-export const IERC20 = (currentProvider: any, reciepentAddress: string) => {
-  if (currentProvider === bscWeb3) {
-    return new currentProvider.eth.Contract(BEP20ABI, reciepentAddress);
-  } else {
-    return new currentProvider.eth.Contract(IERC20ABI.abi, reciepentAddress);
-  }
-};

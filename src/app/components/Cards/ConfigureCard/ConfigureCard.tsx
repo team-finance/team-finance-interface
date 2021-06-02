@@ -22,7 +22,13 @@ const ConfigureCard = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (wallets.isConnected && wallets.accounts[0] && selectedToken) {
-      dispatch(getUserTokenBalance(selectedToken, wallets.accounts[0], wallets.connectedWalelt))
+      dispatch(
+        getUserTokenBalance(
+          selectedToken,
+          wallets.accounts[0],
+          wallets.connectedWallet
+        )
+      );
       dispatch(
         getAllowance(
           selectedToken,
@@ -64,7 +70,7 @@ const ConfigureCard = () => {
         {/* {lockups.fetchedToken.map((token: any) => { */}
         <SubCard
           name="Lock Amount"
-          subValue="Balance: 0.00"
+          subValue={`Balance:${wallets.userTokenBalance} `}
           value={amount}
           token={selectedToken.symbol}
           isUnit={false}
