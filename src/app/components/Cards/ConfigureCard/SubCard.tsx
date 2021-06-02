@@ -14,13 +14,20 @@ const SubCard = (props: ConfigureSubCardType) => {
     token,
     unit,
     onSelect,
+    maxValue,
   } = props;
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [maxBalance, setMaxBalance] = useState<number>(0);
 
   const handleSelect = (id: number) => {
     onSelect && onSelect(id);
     setIsOpen(false);
+  };
+
+  const handleMax = () => {
+    let maxBalance = maxValue;
+    setMaxBalance(maxBalance);
   };
 
   return (
@@ -36,7 +43,7 @@ const SubCard = (props: ConfigureSubCardType) => {
           <Col className="p-0 value-wrap" sm={6} md={6} lg={6}>
             <input
               type="number"
-              value={value}
+              value={value || maxValue}
               className="form-control field-input"
               placeholder="0"
               onChange={(e) => onChange(parseInt(e.target.value))}
@@ -44,7 +51,10 @@ const SubCard = (props: ConfigureSubCardType) => {
           </Col>
           {isMax && (
             <Col className="p-0 max-wrap" sm={2} md={2} lg={2}>
-              <Button className="max-btn">Max</Button>
+              <Button 
+              // onClick={() => handleMax()}
+              onClick={handleMax} 
+              className="max-btn">Max</Button>
             </Col>
           )}
           <Col className="unit-wrap">

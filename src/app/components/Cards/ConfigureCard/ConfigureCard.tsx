@@ -75,6 +75,7 @@ const ConfigureCard = () => {
           token={selectedToken.symbol}
           isUnit={false}
           isMax={true}
+          maxValue = {wallets.userTokenBalance}
           onChange={setAmount}
         />
         {/* })} */}
