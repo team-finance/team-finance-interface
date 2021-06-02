@@ -11,20 +11,25 @@ import { lockupHandling } from "app/state/lockups/lockup";
 import { useAppDispatch } from "app/state";
 import { getUserTokenBalance } from "app/state/walletConnect/helper";
 import TransactionPopup from "app/components/TransactionLoader";
-import AlertToast from "app/components/AlertToast";
+import AlertToast from "app/components/View/UI/AlertToast";
+import { LockActionStatus } from "app/state/types";
 
 const ConfigureCard = () => {
   const [amount, setAmount] = useState<number>(0);
   const [dateCount, setDateCount] = useState<number>(90);
   const [unit, setUnit] = useState<number>(1);
   const [date, setDate] = useState(moment(Date()));
-  const [transShow, setTransShow] = useState<boolean>(true);
-  const { selectedToken, isLockupApproved, isLockApproveLoading } =
-    useLockupState();
+  const [transShow, setTransShow] = useState<boolean>(false);
+  const {
+    selectedToken,
+    isLockupApproved,
+    isLockApproveLoading,
+    lockActionStatus,
+  } = useLockupState();
   const { wallets } = useWalletState();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (wallets.isConnected && wallets.accounts[0] && selectedToken) {
+    if (wallets.isConnected && wallets.accounts[0]) {
       dispatch(
         getUserTokenBalance(
           selectedToken,
@@ -159,6 +164,7 @@ const ConfigureCard = () => {
             className={isLockupApproved ? "btn-approve" : "btn-lock"}
             disabled={!isLockupApproved}
             onClick={() => {
+              setTransShow(true);
               dispatch(
                 lockupHandling(
                   wallets.accounts[0],
@@ -188,11 +194,15 @@ const ConfigureCard = () => {
             handleClose={() => {
               setTransShow(false);
             }}
-            mode="failure"
+            mode={
+              lockActionStatus === LockActionStatus.TRANS_RECEIVED
+                ? "success"
+                : lockActionStatus === LockActionStatus.REJECTED
+                ? "failure"
+                : "loading"
+            }
           />
         )}
-
-        {/* <AlertToast /> */}
       </Col>
     </AuxCard.Body>
   );

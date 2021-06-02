@@ -1,5 +1,12 @@
 .toast-custom {
   width: 240px;
+  height: 110px;
+  position: absolute;
+  top: 110px;
+  right: 14px;
+  border-radius: "6px";
+  z-index: 5;
+  background-color: #fff;
 }
 .toast-custom-header {
   background-color: transparent;
@@ -7,6 +14,7 @@
 }
 .toast-custom-body {
   padding: 0;
+  background-color: #fff;
 }
 .errorMessage {
   padding: 2rem;

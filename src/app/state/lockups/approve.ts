@@ -16,6 +16,7 @@ import {
 export const getAllowance =
   (selectedToken: any, address: any, wallet: any) =>
   async (dispatch: Dispatch) => {
+    console.log(selectedToken, address, wallet);
     const { currentProvider } = await getProvider(wallet);
     getIERC20Contract(selectedToken.id, currentProvider)
       .methods.allowance(address, coreContractAddress)
@@ -23,12 +24,14 @@ export const getAllowance =
         if (!error && result) {
           let allowance = result;
           console.log(allowance);
+
           if (allowance === "0") {
             dispatch(toggleLockupApproved(false));
           } else {
             dispatch(toggleLockupApproved(true));
           }
         } else {
+          console.log(error);
           dispatch(toggleLockupApproved(false));
         }
       });
