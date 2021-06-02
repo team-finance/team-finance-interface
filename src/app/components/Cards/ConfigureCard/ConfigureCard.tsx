@@ -128,6 +128,11 @@ const ConfigureCard = () => {
           <Button
             className={!isLockupApproved ? "btn-approve" : "btn-lock"}
             disabled={isLockupApproved || isLockApproveLoading}
+            style={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
             onClick={() =>
               dispatch(
                 handleApproval(
