@@ -22,7 +22,7 @@ export const getAllowance =
         if (!error && result) {
           let allowance = result;
           console.log(allowance);
-          if (allowance === 0) {
+          if (allowance === "0") {
             dispatch(toggleLockupApproved(false));
           } else {
             dispatch(toggleLockupApproved(true));
