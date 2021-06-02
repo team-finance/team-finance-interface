@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { AuxCard } from "../../../helpers/widgets";
 import moment from "moment-timezone";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Spinner, ProgressBar } from "react-bootstrap";
 import SubCard from "./SubCard";
 import { DAY_DROPDOWN_LIST } from "../../../constants";
 import { useLockupState, useWalletState } from "app/state/hooks";
@@ -15,7 +15,8 @@ const ConfigureCard = () => {
   const [dateCount, setDateCount] = useState<number>(90);
   const [unit, setUnit] = useState<number>(1);
   const [date, setDate] = useState(moment(Date()));
-  const { selectedToken, isLockupApproved } = useLockupState();
+  const { selectedToken, isLockupApproved, isLockApproveLoading } =
+    useLockupState();
   const { wallets } = useWalletState();
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -63,7 +64,7 @@ const ConfigureCard = () => {
         break;
     }
   };
-
+  console.log(isLockApproveLoading);
   return (
     <AuxCard.Body className="configure-card">
       <Col className="p-0">
@@ -123,10 +124,10 @@ const ConfigureCard = () => {
             </Col>
           </Row>
         </div>
-        <div className="btn-container">
+        <div className="btn-container approve-btn">
           <Button
             className={!isLockupApproved ? "btn-approve" : "btn-lock"}
-            disabled={isLockupApproved}
+            disabled={isLockupApproved || isLockApproveLoading}
             onClick={() =>
               dispatch(
                 handleApproval(
@@ -137,7 +138,15 @@ const ConfigureCard = () => {
               )
             }
           >
-            Approve Lock
+            {!isLockApproveLoading ? (
+              "Approve Lock"
+            ) : (
+              <>
+                {" "}
+                <span>Approving</span>{" "}
+                <Spinner animation="border" role="status" />
+              </>
+            )}
           </Button>
           <Button
             className={isLockupApproved ? "btn-approve" : "btn-lock"}
@@ -159,7 +168,10 @@ const ConfigureCard = () => {
         </div>
         <div className="progress-bar-container">
           <div className="circle">1</div>
-          <div className="progress-bar"></div>
+          {/* <div className="progress-bar"></div> */}
+          <div>
+            <ProgressBar now={100} />
+          </div>
           <div className="circle second">2</div>
         </div>
       </Col>
