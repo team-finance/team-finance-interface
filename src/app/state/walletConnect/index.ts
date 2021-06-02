@@ -23,6 +23,7 @@ const initialState: WalletState = {
   currentProvider: null,
   provider: null,
   accountBalance: "",
+  userTokenBalance: "",
 };
 
 export const walletSlice = createSlice({
@@ -52,6 +53,9 @@ export const walletSlice = createSlice({
     setAccountBalance: (state, action) => {
       state.accountBalance = action.payload;
     },
+    setUserTokenBalance: (state, action) => {
+      state.userTokenBalance = action.payload;
+    },
   },
 });
 
@@ -61,6 +65,7 @@ export const {
   setConnectedWallet,
   setCurrentProvider,
   setAccountBalance,
+  setUserTokenBalance,
 } = walletSlice.actions;
 
 export const setChain = (chainId: number) => async (dispatch: any) => {

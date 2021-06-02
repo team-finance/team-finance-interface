@@ -9,6 +9,7 @@ import { useLockupState, useWalletState } from "app/state/hooks";
 import { getAllowance, handleApproval } from "app/state/lockups/approve";
 import { lockupHandling } from "app/state/lockups/lockup";
 import { useAppDispatch } from "app/state";
+import { getUserTokenBalance } from "app/state/walletConnect/helper";
 
 const ConfigureCard = () => {
   const [amount, setAmount] = useState<number>(0);
@@ -20,16 +21,8 @@ const ConfigureCard = () => {
   const { wallets } = useWalletState();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (wallets.isConnected && wallets.accounts[0]) {
-      // dispatch(
-      //   lockupHandling(
-      //     wallets.accounts[0],
-      //     selectedToken,
-      //     "100000000000",
-      //     "1622617505000",
-      //     wallets.connectedWallet
-      //   )
-      // );
+    if (wallets.isConnected && wallets.accounts[0] && selectedToken) {
+      dispatch(getUserTokenBalance(selectedToken, wallets.accounts[0], wallets.connectedWalelt))
       dispatch(
         getAllowance(
           selectedToken,
@@ -38,7 +31,7 @@ const ConfigureCard = () => {
         )
       );
     }
-  }, [wallets.connectedWallet, wallets.accounts[0]]);
+  }, [wallets.connectedWallet, wallets.accounts[0], selectedToken]);
   useEffect(() => {
     getCalculatedDate(unit);
   }, [unit, dateCount]);
