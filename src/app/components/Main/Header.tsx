@@ -139,13 +139,7 @@ const Header: FC<Props> = ({ onConnect }) => {
             )}
             <AddressTab
               theme={settings.isDark}
-              onClick={
-                () => {}
-                // setWalletStatusInfo({
-                //   show: true,
-                //   address: accounts[0],
-                // })
-              }
+              onClick={() => {}}
               address={wallets.accounts[0]}
             />
           </div>
