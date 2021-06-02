@@ -1,4 +1,4 @@
-import { LockApproveState, LockupState } from "../types";
+import { LockActionStatus, LockApproveState, LockupState } from "../types";
 import { createSlice, Dispatch } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -8,6 +8,7 @@ const initialState: LockupState = {
   isLockupApproved: false,
   isLockApproveLoading: false,
   lockApproveStatus: LockApproveState.NULL,
+  lockActionStatus: LockActionStatus.NULL,
 };
 
 export const lockupSlice = createSlice({
@@ -29,6 +30,9 @@ export const lockupSlice = createSlice({
     setLockApproveStatus: (state, action) => {
       state.lockApproveStatus = action.payload;
     },
+    setLockActionStatus: (state, action) => {
+      state.lockActionStatus = action.payload;
+    },
   },
 });
 
@@ -38,6 +42,7 @@ export const {
   toggleLockupApproved,
   toggleLockApproveLoading,
   setLockApproveStatus,
+  setLockActionStatus,
 } = lockupSlice.actions;
 
 export const fetchToken = (token: string) => async (dispatch: Dispatch) => {
