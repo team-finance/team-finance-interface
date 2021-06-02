@@ -5,8 +5,12 @@ import {
   approveTokenMaximumValue,
 } from "../../ethereum/index";
 import { LockApproveState } from "../types";
-import { getProvider } from "../walletConnect";
-import { toggleLockupApproved, setLockApproveStatus } from "./index";
+import { getProvider } from "../walletConnect/helper";
+import {
+  toggleLockupApproved,
+  setLockApproveStatus,
+  toggleLockApproveLoading,
+} from "./index";
 
 export const getAllowance =
   (selectedToken: any, address: any, wallet: any) =>
@@ -33,6 +37,7 @@ export const handleApproval =
   (selectedToken: any, address: any, wallet: any) =>
   async (dispatch: Dispatch) => {
     const { currentProvider } = await getProvider(wallet);
+    dispatch(toggleLockApproveLoading(true));
     dispatch(setLockApproveStatus(LockApproveState.LOADING));
     getIERC20Contract(selectedToken.id, currentProvider)
       .methods.approve(coreContractAddress, approveTokenMaximumValue)
@@ -41,7 +46,10 @@ export const handleApproval =
       })
       .on("receipt", (res: any) => {
         console.log("receipt", res);
+        dispatch(toggleLockApproveLoading(false));
+
         dispatch(setLockApproveStatus(LockApproveState.SUCCESS));
+        dispatch(toggleLockupApproved(true));
       })
       .on("transactionHash", (hash: any) => {
         console.log("transaction", hash);

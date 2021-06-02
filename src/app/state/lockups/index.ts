@@ -36,6 +36,7 @@ export const {
   fetchTokenDetails,
   setselectedToken,
   toggleLockupApproved,
+  toggleLockApproveLoading,
   setLockApproveStatus,
 } = lockupSlice.actions;
 

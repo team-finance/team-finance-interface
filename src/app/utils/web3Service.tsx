@@ -12,6 +12,9 @@ export const web3Service = {
   getWei: (payload: any, curr: string) => {
     return web3.utils.fromWei(payload, curr);
   },
+  getChecksumAddress: (address: string) => {
+    return web3.utils.toChecksumAddress(address.toLowerCase());
+  },
   getValue: (isEth: any, currentProvider: any, amount: any, decimal: any) => {
     console.log(
       new BigNumber(amount).times(new BigNumber(10).pow(decimal)).toString(),

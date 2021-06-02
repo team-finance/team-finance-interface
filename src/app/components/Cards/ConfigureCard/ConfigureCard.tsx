@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { AuxCard } from "../../../helpers/widgets";
 import moment from "moment-timezone";
@@ -13,7 +14,7 @@ const ConfigureCard = () => {
   const [dateCount, setDateCount] = useState<number>(90);
   const [unit, setUnit] = useState<number>(1);
   const [date, setDate] = useState(moment(Date()));
-  const { selectedToken } = useLockupState();
+  const { selectedToken, isLockupApproved } = useLockupState();
   const { wallets } = useWalletState();
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -114,7 +115,8 @@ const ConfigureCard = () => {
         </div>
         <div className="btn-container">
           <Button
-            className="btn-approve"
+            className={!isLockupApproved ? "btn-approve" : "btn-lock"}
+            disabled={isLockupApproved}
             onClick={() =>
               dispatch(
                 handleApproval(
@@ -127,7 +129,10 @@ const ConfigureCard = () => {
           >
             Approve Lock
           </Button>
-          <Button className="btn-lock" disabled>
+          <Button
+            className={isLockupApproved ? "btn-approve" : "btn-lock"}
+            disabled={!isLockupApproved}
+          >
             Lock UNI
           </Button>
         </div>
