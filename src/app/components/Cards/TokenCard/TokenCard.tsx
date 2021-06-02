@@ -22,7 +22,7 @@ const TokenCard = (props: TokenCardType) => {
 
   const handleTokenChange = (e: any) => {
     setSearchText(e.target.value);
-    dispatch(fetchToken(e.target.value));
+    dispatch(fetchToken(e.target.value.toLowerCase()));
   };
 
   useEffect(() => {
