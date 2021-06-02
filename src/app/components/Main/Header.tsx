@@ -5,7 +5,16 @@ import { capitalize, shortenAddress } from "../../helpers/common";
 import { HEADER_LIST } from "../../constants";
 import { NavLink } from "react-router-dom";
 import { useSettings, useWalletState } from "app/state/hooks";
-import { AddressTabProps, ConnectWalletButtonProps } from "app/helpers/types";
+import { AddressTabProps, ConnectWalletButtonProps,AccountBalanceProps } from "app/helpers/types";
+const activeNetworkBaseCurrency = (selectedNetworkId: any) => {
+  if (selectedNetworkId === 1) {
+    return "ETH";
+  } else if (selectedNetworkId === 2) {
+    return "BNB";
+  } else if (selectedNetworkId === 3) {
+    return "MATIC";
+  }
+};
 // import settings from "app/state/settings";
 interface Props {
   onConnect: () => void;
@@ -55,6 +64,26 @@ export const AddressTab = ({ theme, onClick, address }: AddressTabProps) => {
       onClick={onClick}
     >
       {shortenAddress(address)}
+    </button>
+  );
+};
+
+export const AccountBalance = ({
+  accountBalance,
+  tokenType,
+  className,
+  theme,
+}: AccountBalanceProps) => {
+  return (
+    <button
+      className={` ${
+        theme === "dark" && "btn-dark"
+      } btn-custom-secondary btn-round-switch acc-balance ${
+        className ? className : ""
+      }`}
+    >
+      <span className="mr-1">{accountBalance}</span>
+      <span className="currency">{activeNetworkBaseCurrency(tokenType)}</span>
     </button>
   );
 };

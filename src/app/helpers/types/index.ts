@@ -15,3 +15,10 @@ export type AddressTabProps = {
   onClick: () => void;
   address: string;
 };
+
+export type AccountBalanceProps = {
+  accountBalance: string | number;
+  tokenType: any;
+  className?: string;
+  theme: string;
+};
