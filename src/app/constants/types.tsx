@@ -60,7 +60,6 @@ export interface ConfigureSubCardType {
   isUnit: boolean;
   isMax?: boolean;
   token?: string;
-  maxValue?: any;
   unit?: number;
   onSelect?: Dispatch<SetStateAction<number>>;
 }

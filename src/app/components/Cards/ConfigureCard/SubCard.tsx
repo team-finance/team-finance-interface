@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Card } from "react-bootstrap";
 import { ConfigureSubCardType } from "../../../constants/types";
 import { DAY_DROPDOWN_LIST } from "../../../constants";
-
+import { setAccountBalance } from "app/state/walletConnect";
+import {  useWalletState } from "app/state/hooks";
 const SubCard = (props: ConfigureSubCardType) => {
   const {
     name,
@@ -14,11 +15,10 @@ const SubCard = (props: ConfigureSubCardType) => {
     token,
     unit,
     onSelect,
-    maxValue,
   } = props;
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [maxBalance, setMaxBalance] = useState<number>(0);
+  const { wallets } = useWalletState();
 
   const handleSelect = (id: number) => {
     onSelect && onSelect(id);
@@ -26,8 +26,8 @@ const SubCard = (props: ConfigureSubCardType) => {
   };
 
   const handleMax = () => {
-    let maxBalance = maxValue;
-    setMaxBalance(maxBalance);
+  // setAmount(wallets.userTokenBalance);
+  onChange(wallets.userTokenBalance);
   };
 
   return (
@@ -43,7 +43,7 @@ const SubCard = (props: ConfigureSubCardType) => {
           <Col className="p-0 value-wrap" sm={6} md={6} lg={6}>
             <input
               type="number"
-              value={value || maxBalance}
+              value={value }
               className="form-control field-input"
               placeholder="0"
               onChange={(e) => onChange(parseInt(e.target.value))}
