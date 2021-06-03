@@ -83,9 +83,7 @@ const ConfigureCard = () => {
   }, [unit, dateCount]);
 
   useEffect(() => {
-    lockActionStatus == 3 || lockActionStatus == 2
-      ? setLoading(false)
-      : setLoading(true);
+    if (lockActionStatus == 3 || lockActionStatus == 2) setLoading(false);
   }, [lockActionStatus]);
 
   useEffect(() => {
@@ -218,7 +216,7 @@ const ConfigureCard = () => {
             }}
           >
             {!loading ? (
-              "Lock UNI"
+              `Lock ${selectedToken.symbol}`
             ) : (
               <>
                 {" "}
