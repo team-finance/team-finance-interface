@@ -108,6 +108,7 @@ const SubCard = (props: ConfigureSubCardType) => {
                     width: "20px",
                     height: "20px",
                     marginRight: "10px",
+                    marginLeft: "20px",
                   }}
                 />
                 {token}

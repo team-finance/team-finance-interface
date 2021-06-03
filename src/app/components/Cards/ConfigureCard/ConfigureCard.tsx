@@ -175,7 +175,11 @@ const ConfigureCard = () => {
         </div>
         <div className="btn-container approve-btn">
           <Row>
-            <Col xs={12} sm={6}>
+            <Col
+              xs={12}
+              sm={6}
+              style={{ display: "flex", justifyContent: "center" }}
+            >
               <Button
                 className={!isLockupApproved ? "btn-approve" : "btn-lock"}
                 disabled={isLockupApproved || isLockApproveLoading}
@@ -183,6 +187,7 @@ const ConfigureCard = () => {
                   display: "flex",
                   justifyContent: "space-evenly",
                   alignItems: "center",
+                  marginTop: "10px",
                 }}
                 onClick={() =>
                   dispatch(
@@ -205,7 +210,15 @@ const ConfigureCard = () => {
                 )}
               </Button>
             </Col>
-            <Col xs={12} sm={6}>
+            <Col
+              xs={12}
+              sm={6}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "10px",
+              }}
+            >
               <Button
                 className={isLockupApproved ? "btn-approve" : "btn-lock"}
                 disabled={!isLockupApproved}
