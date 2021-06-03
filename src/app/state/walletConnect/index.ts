@@ -82,12 +82,11 @@ export const setChain = (chainId: number) => async (dispatch: any) => {
 };
 
 export const connectWalletHandler =
-  (wallet: any, networkType: any, selectedNetworkId: any) =>
+  (wallet: any, networkType: any, selectedNetwork: any) =>
   async (dispatch: any) => {
     if (wallet) {
       let { currentProvider } = await getProvider(wallet);
-      // let {selectedNetworkId} = await getSelectedNetworkId(wallet);
-      dispatch(handleWalletConnect(wallet, networkType, currentProvider));
+      dispatch(handleWalletConnect(wallet, networkType, currentProvider,));
     }
   };
 const metamaskEventHandler = (dispatch: any, provider: any) => {

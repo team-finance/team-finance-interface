@@ -7,6 +7,7 @@ const initialState: LockupState = {
   selectedToken: "",
   isLockupApproved: false,
   isLockApproveLoading: false,
+  lockHashReceived: "",
   lockApproveStatus: LockApproveState.NULL,
   lockActionStatus: LockActionStatus.NULL,
 };
@@ -20,6 +21,9 @@ export const lockupSlice = createSlice({
     },
     setselectedToken: (state, action) => {
       state.selectedToken = action.payload;
+    },
+    setLockHashRecived: (state, action) => {
+      state.lockHashReceived = action.payload;
     },
     toggleLockupApproved: (state, action) => {
       state.isLockupApproved = action.payload;
@@ -43,6 +47,7 @@ export const {
   toggleLockApproveLoading,
   setLockApproveStatus,
   setLockActionStatus,
+  setLockHashRecived
 } = lockupSlice.actions;
 
 export const fetchToken = (token: string) => async (dispatch: Dispatch) => {

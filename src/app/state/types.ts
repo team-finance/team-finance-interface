@@ -41,6 +41,7 @@ export interface LockupState {
   isLockApproveLoading: boolean;
   lockApproveStatus: LockApproveState;
   lockActionStatus: LockActionStatus;
+  lockHashReceived: string;
 }
 
 export interface State {
