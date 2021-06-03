@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../components/Main/Header";
+import Footer from "../../components/Main/Footer";
 import Body from "../../components/Main/Body";
 import { useWalletState } from "app/state/hooks";
 import ConnectWalletModal from "app/components/View/UI/ConnectWalletModal";
@@ -24,6 +25,7 @@ const Layout = () => {
   return (
     <div className="main-layout">
       <Header onConnect={() => walletConnect()} />
+      {/* <Footer onConnect={() => walletConnect()} /> */}
       <Body />
       {walletModalInfo.show && !wallets.isConnected && (
         <ConnectWalletModal
