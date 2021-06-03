@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Row, Col, Button, Spinner } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import teamLogo from "assets/images/team-logo-white.png";
 import { capitalize, shortenAddress } from "../../helpers/common";
 import { HEADER_LIST, NETWORK_LIST } from "../../constants";
@@ -127,9 +127,9 @@ export const ActiveNetwork: FC<ActiveNetworkP> = ({ activeNetwork }) => {
 const Header: FC<Props> = ({ onConnect }) => {
   const { wallets } = useWalletState();
   const { settings } = useSettings();
-  const networkInfo = NETWORK_LIST.filter(
-    (item) => item.id === wallets.selectedNetworkId
-  )[0];
+  // const networkInfo = NETWORK_LIST.filter(
+  //   (item) => item.id === wallets.selectedNetworkId
+  // )[0];
 
   return (
     <Row className="main-header m-0">

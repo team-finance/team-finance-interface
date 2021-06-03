@@ -11,13 +11,12 @@ import { lockupHandling } from "app/state/lockups/lockup";
 import { useAppDispatch } from "app/state";
 import { getUserTokenBalance } from "app/state/walletConnect/helper";
 import TransactionPopup from "app/components/TransactionLoader";
-import AlertToast from "app/components/View/UI/AlertToast";
 import { LockActionStatus, LockApproveState } from "app/state/types";
 import { web3Service } from "app/utils/web3Service";
 
 const ConfigureCard = () => {
   const [amount, setAmount] = useState<number>(0);
-  const [tokenAddress, setTokenAddress] = useState<any>();
+  const setTokenAddress = useState<any>()[1];
 
   const [dateCount, setDateCount] = useState<number>(90);
   const [unit, setUnit] = useState<number>(1);
@@ -101,7 +100,9 @@ const ConfigureCard = () => {
         break;
       }
       case "Timestamp": {
-        console.log("timestamp");
+        let _d = new Date(date.toDate()).getTime();
+        console.log(_d);
+        // setDate();
         break;
       }
       default:
@@ -202,14 +203,16 @@ const ConfigureCard = () => {
             className={isLockupApproved ? "btn-approve" : "btn-lock"}
             disabled={!isLockupApproved}
             onClick={() => {
+              let _d = new Date(date.toDate()).getTime();
+
               setTransShow(true);
               setLoading(true);
               dispatch(
                 lockupHandling(
                   wallets.accounts[0],
                   selectedToken,
-                  "1",
-                  "1622617505000",
+                  amount,
+                  _d,
                   wallets.connectedWallet
                 )
               );
@@ -227,7 +230,6 @@ const ConfigureCard = () => {
         </div>
         <div className="progress-bar-container">
           <div className="circle">1</div>
-          {/* <div className="progress-bar"></div> */}
           <div className="progress-bar">
             <ProgressBar now={progress} />
           </div>

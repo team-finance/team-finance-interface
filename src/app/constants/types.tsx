@@ -56,7 +56,7 @@ export interface ConfigureSubCardType {
   name: string;
   value: number;
   subValue: string;
-  onChange: Dispatch<SetStateAction<number>>;
+  onChange: Dispatch<SetStateAction<any>>;
   isUnit: boolean;
   isMax?: boolean;
   token?: string;

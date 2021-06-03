@@ -1,10 +1,9 @@
 import { useAppDispatch } from "app/state";
 import React, { useEffect, useState } from "react";
-import { Row, Col, Card, Button } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import { TokenSubCardType } from "../../../constants/types";
 import { setselectedToken } from "app/state/lockups/index";
 import { motion } from "framer-motion";
-import Web3 from "web3";
 import { web3Service } from "app/utils/web3Service";
 
 const containerVariants = {
@@ -15,21 +14,13 @@ const containerVariants = {
   visible: {
     opacity: 1,
     y: "0px",
-    // transition: {
-    //   delay: 0.3,
-    //   duration: 0.8,
-    // },
     transition: { ease: "easeOut", duration: 0.5 },
   },
-  // exit: {
-  //   x: "-100vw",
-  //   transition: { ease: "easeInOut" },
-  // },
 };
 
 const SubCard = (props: TokenSubCardType) => {
   const [tokenAddress, setTokenAddress] = useState<any>();
-  const { key, onSelect, tokenDetail } = props;
+  const { onSelect, tokenDetail } = props;
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (tokenDetail.id) {

@@ -48,17 +48,17 @@ const SubCard = (props: ConfigureSubCardType) => {
           </Col>
         </Row>
         <Row className="m-0 h-50 row-wrap">
-          <Col className="p-0 value-wrap" sm={6} md={6} lg={6}>
+          <Col className="p-0 value-wrap" xs={6} sm={6} md={6} lg={6}>
             <input
               type="number"
               value={value}
               className="form-control field-input"
               placeholder="0"
-              onChange={(e) => onChange(parseInt(e.target.value))}
+              onChange={(e) => onChange(e.target.value)}
             />
           </Col>
 
-          <Col className="unit-wrap">
+          <Col className="unit-wrap" xs={6} sm={6} md={6} lg={6}>
             {isMax && (
               // <Col className="p-0 max-wrap" sm={2} md={2} lg={2}>
               <button
