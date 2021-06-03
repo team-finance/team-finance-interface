@@ -23,6 +23,7 @@ const ConfigureCard = () => {
   const [date, setDate] = useState(moment(Date()));
   const [transShow, setTransShow] = useState<boolean>(false);
   const [progress, setProgress] = useState(0);
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     selectedToken,
     lockApproveStatus,
@@ -79,6 +80,11 @@ const ConfigureCard = () => {
   useEffect(() => {
     getCalculatedDate(unit);
   }, [unit, dateCount]);
+
+  useEffect(() => {
+    if (lockActionStatus == 3 || lockActionStatus == 2) setLoading(false);
+  }, [lockActionStatus]);
+
   useEffect(() => {
     console.log(selectedToken);
   }, [selectedToken]);
@@ -103,7 +109,8 @@ const ConfigureCard = () => {
         break;
     }
   };
-  console.log(isLockApproveLoading);
+  console.log(loading);
+  console.log(lockActionStatus);
   return (
     <AuxCard.Body className="configure-card">
       <Col className="p-0">
@@ -199,6 +206,7 @@ const ConfigureCard = () => {
               let _d = new Date(date.toDate()).getTime();
 
               setTransShow(true);
+              setLoading(true);
               dispatch(
                 lockupHandling(
                   wallets.accounts[0],
@@ -210,7 +218,14 @@ const ConfigureCard = () => {
               );
             }}
           >
-            Lock UNI
+            {!loading ? (
+              `Lock ${selectedToken.symbol}`
+            ) : (
+              <>
+                {" "}
+                <Spinner animation="border" role="status" />
+              </>
+            )}
           </Button>
         </div>
         <div className="progress-bar-container">

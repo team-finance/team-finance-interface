@@ -57,18 +57,20 @@ const SubCard = (props: ConfigureSubCardType) => {
               onChange={(e) => onChange(e.target.value)}
             />
           </Col>
-          {isMax && (
-            <Col className="p-0 max-wrap" sm={2} md={2} lg={2}>
-              <Button
+
+          <Col className="unit-wrap">
+            {isMax && (
+              // <Col className="p-0 max-wrap" sm={2} md={2} lg={2}>
+              <button
                 // onClick={() => handleMax()}
                 onClick={handleMax}
                 className="max-btn"
+                style={{ color: "#3365d6" }}
               >
                 Max
-              </Button>
-            </Col>
-          )}
-          <Col className="unit-wrap">
+              </button>
+              // </Col>
+            )}
             {isUnit && unit ? (
               <div className="drop-down-btn">
                 <span className="title" onClick={() => setIsOpen(!isOpen)}>

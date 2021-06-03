@@ -133,10 +133,10 @@ const Header: FC<Props> = ({ onConnect }) => {
 
   return (
     <Row className="main-header m-0">
-      <Col className="team-logo" sm={3} md={3} lg={3}>
+      <Col className="team-logo" sm={4} md={4} lg={3}>
         <img src={teamLogo} alt="team-logo" />
       </Col>
-      <Col sm={6} md={6} lg={6}>
+      <Col sm={2} md={4} lg={6}>
         <Row className="nav-options">
           {HEADER_LIST.map((item) => {
             const icon =
@@ -155,7 +155,7 @@ const Header: FC<Props> = ({ onConnect }) => {
           })}
         </Row>
       </Col>
-      <Col className="btn-connect" sm={3} md={3} lg={3}>
+      <Col className="btn-connect" sm={4} md={4} lg={3}>
         {(wallets.accounts && wallets.accounts.length) ||
         wallets.isConnected ? (
           <div
@@ -178,6 +178,7 @@ const Header: FC<Props> = ({ onConnect }) => {
                 borderRadius: "20px",
                 color: "white",
                 border: "0.0625rem solid #ffffff",
+                padding: "0.2rem",
               }}
             >
               <AccountBalance
