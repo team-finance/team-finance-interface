@@ -120,7 +120,7 @@ const ContentCard = () => {
   };
 
   return (
-    <div>
+    <div style={{ padding: "10px" }}>
       <AuxCard className="content-card">
         <AuxCard.Header>
           {!slideCard.networkCard && (
