@@ -82,7 +82,12 @@ const ConfigureCard = () => {
   }, [unit, dateCount]);
 
   useEffect(() => {
-    if (lockActionStatus == 3 || lockActionStatus == 2) setLoading(false);
+    if (
+      lockActionStatus !== 2 &&
+      lockActionStatus !== 3 &&
+      lockActionStatus !== 5
+    )
+      setLoading(false);
   }, [lockActionStatus]);
 
   useEffect(() => {
@@ -109,8 +114,6 @@ const ConfigureCard = () => {
         break;
     }
   };
-  console.log(loading);
-  console.log(lockActionStatus);
   return (
     <AuxCard.Body className="configure-card">
       <Col className="p-0">

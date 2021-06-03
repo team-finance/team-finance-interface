@@ -55,9 +55,86 @@
     }
   }
 
+  @media only screen and (max-width: 784px) {
+    .nav-options {
+      // display: none;
+    }
+  }
+
+  .btn-connect {
+    text-align: center;
+
+    .btn {
+      background: transparent;
+      padding: 0.625rem 0.9375rem;
+      border-radius: 0.3125rem;
+      border: 0.0625rem solid #ffffff;
+      font-size: 1rem;
+      letter-spacing: 0.0175rem;
+      color: #ffffff;
+      margin: 0;
+    }
+  }
+}
+.main-footer {
+  // display: none;
+  min-height: 5.625rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-app-bg;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+
+  .team-logo {
+    text-align: center !important;
+
+    img {
+      height: 3.125rem;
+    }
+  }
+
+  .nav-options-footer {
+    justify-content: center;
+
+    .nav-li {
+      color: #ffffff;
+      display: flex;
+      cursor: pointer;
+      opacity: 0.5;
+      margin: 0 1rem;
+
+      &:hover,
+      &.nav-li-active {
+        opacity: 1;
+        text-decoration: none;
+      }
+
+      img {
+        height: 1.125rem;
+        margin-right: 0.4375rem;
+      }
+
+      span {
+        font-size: 1.125rem;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: 0.0044rem;
+      }
+    }
+  }
+
   @media only screen and (max-width: 980px) {
     .nav-options {
-      display: none;
+      // display: none;
+      // visibility: hidden;
+    }
+    .main-footer {
+      // display: block;
+      // visibility: visible;
     }
   }
 
@@ -100,6 +177,7 @@
 
 .progress-bar {
   background-color: #43b874;
+  border: none;
 }
 
 input::-webkit-outer-spin-button,
