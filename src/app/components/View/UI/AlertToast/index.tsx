@@ -96,7 +96,15 @@ const AlertToast: FC<Props> = ({ handleClose, message, now, status }) => {
               </div>
             </div>
           )}
-          <ProgressBar now={now} srOnly />
+          <ProgressBar
+            now={now}
+            srOnly
+            style={{
+              height: "0.3rem",
+              position: "relative",
+              bottom: "0",
+            }}
+          />
         </Toast.Body>
       </Toast>
     </>

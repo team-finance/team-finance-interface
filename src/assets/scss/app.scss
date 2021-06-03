@@ -10,7 +10,7 @@
 }
 
 .main-header {
-  height: 5.625rem;
+  min-height: 5.625rem;
   width: 100%;
   align-items: center;
   background-color: $color-app-bg;
@@ -84,4 +84,14 @@
 
 .modal-content {
   border-radius: 10px;
+}
+.toast-body {
+  padding: 0;
+}
+.toast {
+  height: auto;
+}
+
+.progress-bar {
+  background-color: #43b874;
 }
