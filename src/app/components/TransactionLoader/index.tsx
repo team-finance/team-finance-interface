@@ -36,7 +36,7 @@ const TransactionPopup: FC<Props> = ({ handleClose, mode }) => {
             <Modal
               className={`modal-theme `}
               animation={false}
-              size="sm"
+              size="xl"
               show={true}
               onHide={handleClose}
             >
@@ -92,15 +92,20 @@ const TransactionPopup: FC<Props> = ({ handleClose, mode }) => {
                     )} */}
                   </div>
                   <button
-                    className="btn btn-lg btn-custom-primary mt-4"
+                    className="btn btn-lg btn-custom-primary mt-4 close-btn"
                     onClick={handleClose}
+                    style={{
+                      backgroundColor: "#0F59D1",
+                      width: "25rem",
+                      color: "#fff",
+                      borderRadius: "8px",
+                    }}
                     type="button"
                   >
                     Close
                   </button>
                 </div>
               </Modal.Body>
-              <Modal.Footer className="wallet-footer p-2"></Modal.Footer>
             </Modal>
           </>
         );
@@ -110,7 +115,7 @@ const TransactionPopup: FC<Props> = ({ handleClose, mode }) => {
             <Modal
               className={`modal-theme `}
               animation={false}
-              size="sm"
+              size="xl"
               show={true}
               onHide={handleClose}
             >
@@ -136,7 +141,6 @@ const TransactionPopup: FC<Props> = ({ handleClose, mode }) => {
                   <p>Confirm this transaction in your wallet</p>
                 </div>
               </Modal.Body>
-              <Modal.Footer className="wallet-footer p-2"></Modal.Footer>
             </Modal>
           </>
         );
@@ -146,9 +150,10 @@ const TransactionPopup: FC<Props> = ({ handleClose, mode }) => {
             <Modal
               className={`modal-theme`}
               animation={false}
-              size="sm"
+              size="xl"
               show={true}
               onHide={handleClose}
+              // centered
             >
               <Modal.Header className="modal-header-custom" closeButton>
                 <Modal.Title className="model-title-custom">Error</Modal.Title>
@@ -167,6 +172,12 @@ const TransactionPopup: FC<Props> = ({ handleClose, mode }) => {
                   <h5 className="mt-4">Transaction Rejected</h5>
                   <button
                     className="btn btn-lg btn-custom-primary mt-4"
+                    style={{
+                      backgroundColor: "#0F59D1",
+                      width: "25rem",
+                      color: "#fff",
+                      borderRadius: "8px",
+                    }}
                     onClick={handleClose}
                     type="button"
                   >
@@ -174,7 +185,6 @@ const TransactionPopup: FC<Props> = ({ handleClose, mode }) => {
                   </button>
                 </div>
               </Modal.Body>
-              <Modal.Footer className="wallet-footer p-2"></Modal.Footer>
             </Modal>
           </>
         );
