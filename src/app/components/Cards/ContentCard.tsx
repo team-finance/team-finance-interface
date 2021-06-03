@@ -36,8 +36,15 @@ const ContentCard = () => {
   useEffect(() => {
     let interval: any;
 
-    if (lockActionStatus === LockActionStatus.SUCCESS) {
-      setToastMessage("Transaction Success");
+    if (
+      lockActionStatus === LockActionStatus.SUCCESS ||
+      lockActionStatus === LockActionStatus.INVALID
+    ) {
+      setToastMessage(
+        lockActionStatus === LockActionStatus.SUCCESS
+          ? "Transaction Success"
+          : "Transaction Failed"
+      );
       toggleShowToast(true);
 
       var now = 100;
@@ -229,6 +236,16 @@ const ContentCard = () => {
         )}
       </AuxCard>
       {showToast && lockActionStatus !== LockActionStatus.NULL && (
+        <AlertToast
+          handleClose={() => {
+            toggleShowToast(false);
+          }}
+          message={toastMessage}
+          status="success"
+          now={progress}
+        />
+      )}
+      {showToast && lockActionStatus !== LockActionStatus.INVALID && (
         <AlertToast
           handleClose={() => {
             toggleShowToast(false);
