@@ -55,13 +55,27 @@
     }
   }
 
-  @media only screen and (max-width: 784px) {
-    .nav-options {
-      // display: none;
+  // @media only screen and (max-width: 860px) {
+  //   .btn-connect-footer {
+  //     display: none;
+  //   }
+  // }
+
+  .btn-connect-header {
+    text-align: center;
+
+    .btn {
+      background: transparent;
+      padding: 0.625rem 0.9375rem;
+      border-radius: 0.3125rem;
+      border: 0.0625rem solid #ffffff;
+      font-size: 1rem;
+      letter-spacing: 0.0175rem;
+      color: #ffffff;
+      margin: 0;
     }
   }
-
-  .btn-connect {
+  .btn-connect-footer {
     text-align: center;
 
     .btn {
@@ -133,12 +147,29 @@
       // visibility: hidden;
     }
     .main-footer {
-      // display: block;
+      // display: flex;
       // visibility: visible;
+    }
+    .btn-connect-header {
+      display: none;
     }
   }
 
-  .btn-connect {
+  .btn-connect-header {
+    text-align: center;
+
+    .btn {
+      background: transparent;
+      padding: 0.625rem 0.9375rem;
+      border-radius: 0.3125rem;
+      border: 0.0625rem solid #ffffff;
+      font-size: 1rem;
+      letter-spacing: 0.0175rem;
+      color: #ffffff;
+      margin: 0;
+    }
+  }
+  .btn-connect-footer {
     text-align: center;
 
     .btn {

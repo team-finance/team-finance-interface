@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Row, Col, Button, Spinner } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import teamLogo from "assets/images/team-logo-white.png";
 import { capitalize, shortenAddress } from "../../helpers/common";
 import { HEADER_LIST, NETWORK_LIST } from "../../constants";
@@ -124,29 +124,64 @@ export const ActiveNetwork: FC<ActiveNetworkP> = ({ activeNetwork }) => {
   );
 };
 
-const Footer: FC<Props> = () => {
+const Footer: FC<Props> = ({ onConnect }) => {
   const { wallets } = useWalletState();
+  const { settings } = useSettings();
+  // const networkInfo = NETWORK_LIST.filter(
+  //   (item) => item.id === wallets.selectedNetworkId
+  // )[0];
 
   return (
     <Row className="main-footer m-0">
-      <Col sm={6} md={6} lg={6}>
-        <Row className="nav-options-footer">
-          {HEADER_LIST.map((item) => {
-            const icon =
-              require(`../../../assets/images/header_${item.icon}.png`).default;
-            return (
-              <NavLink
-                key={item.id}
-                to={`${item.label}`}
-                className="nav-li"
-                activeClassName="nav-li-active"
-              >
-                <img src={icon} alt={capitalize(item.label)} />
-                <span>{capitalize(item.label)}</span>
-              </NavLink>
-            );
-          })}
-        </Row>
+      <Col className="btn-connect-footer" sm={4} md={4} lg={3}>
+        {(wallets.accounts && wallets.accounts.length) ||
+        wallets.isConnected ? (
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "8%",
+            }}
+          >
+            {wallets?.activeNetWork && (
+              <ActiveNetwork activeNetwork={wallets.activeNetWork} />
+            )}
+
+            <div
+              style={{
+                display: "flex",
+                backgroundColor: "",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "20px",
+                color: "white",
+                border: "0.0625rem solid #ffffff",
+                padding: "0.2rem",
+              }}
+            >
+              <AccountBalance
+                accountBalance={
+                  wallets?.accountBalance && wallets.accountBalance
+                }
+                tokenType={wallets.networkId}
+              />
+            </div>
+            <AddressTab
+              theme={settings.isDark}
+              onClick={() => {}}
+              address={wallets.accounts[0]}
+            />
+          </div>
+        ) : (
+          <ConnectWalletButton
+            theme={settings.isDark}
+            onClick={() => {
+              onConnect();
+              // setWalletModalInfo(true)
+            }}
+            loading={wallets.loading}
+          />
+        )}
       </Col>
     </Row>
   );

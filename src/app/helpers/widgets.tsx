@@ -8,7 +8,7 @@ export const AuxCard = (props: AuxCardType) => {
   return (
     <Card
       className={`aux-card ${className ? className : ""}`}
-      style={{ width: width ? width : 465 }}
+      style={{ minWidth: "300px", maxWidth: "465px" }}
     >
       {children}
     </Card>

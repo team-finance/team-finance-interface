@@ -174,62 +174,67 @@ const ConfigureCard = () => {
           </Row>
         </div>
         <div className="btn-container approve-btn">
-          <Button
-            className={!isLockupApproved ? "btn-approve" : "btn-lock"}
-            disabled={isLockupApproved || isLockApproveLoading}
-            style={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-            }}
-            onClick={() =>
-              dispatch(
-                handleApproval(
-                  selectedToken,
-                  wallets.accounts[0],
-                  wallets.connectedWallet
-                )
-              )
-            }
-          >
-            {!isLockApproveLoading ? (
-              "Approve Lock"
-            ) : (
-              <>
-                {" "}
-                <span>Approving</span>{" "}
-                <Spinner animation="border" role="status" />
-              </>
-            )}
-          </Button>
-          <Button
-            className={isLockupApproved ? "btn-approve" : "btn-lock"}
-            disabled={!isLockupApproved}
-            onClick={() => {
-              let _d = new Date(date.toDate()).getTime();
-
-              setTransShow(true);
-              setLoading(true);
-              dispatch(
-                lockupHandling(
-                  wallets.accounts[0],
-                  selectedToken,
-                  amount,
-                  _d,
-                  wallets.connectedWallet
-                )
-              );
-            }}
-          >
-            {!loading ? (
-              `Lock ${selectedToken.symbol}`
-            ) : (
-              <>
-                {" "}
-                <Spinner animation="border" role="status" />
-              </>
-            )}
-          </Button>
+          <Row>
+            <Col xs={12} sm={6}>
+              <Button
+                className={!isLockupApproved ? "btn-approve" : "btn-lock"}
+                disabled={isLockupApproved || isLockApproveLoading}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}
+                onClick={() =>
+                  dispatch(
+                    handleApproval(
+                      selectedToken,
+                      wallets.accounts[0],
+                      wallets.connectedWallet
+                    )
+                  )
+                }
+              >
+                {!isLockApproveLoading ? (
+                  "Approve Lock"
+                ) : (
+                  <>
+                    {" "}
+                    <span>Approving</span>{" "}
+                    <Spinner animation="border" role="status" />
+                  </>
+                )}
+              </Button>
+            </Col>
+            <Col xs={12} sm={6}>
+              <Button
+                className={isLockupApproved ? "btn-approve" : "btn-lock"}
+                disabled={!isLockupApproved}
+                onClick={() => {
+                  let _d = new Date(date.toDate()).getTime();
+                  setTransShow(true);
+                  setLoading(true);
+                  dispatch(
+                    lockupHandling(
+                      wallets.accounts[0],
+                      selectedToken,
+                      amount,
+                      _d,
+                      wallets.connectedWallet
+                    )
+                  );
+                }}
+              >
+                {!loading ? (
+                  `Lock ${selectedToken.symbol}`
+                ) : (
+                  <>
+                    {" "}
+                    <Spinner animation="border" role="status" />
+                  </>
+                )}
+              </Button>
+            </Col>
+          </Row>
         </div>
         <div className="progress-bar-container">
           <div className="circle">1</div>
