@@ -2,7 +2,7 @@ import { web3Service } from "app/utils/web3Service";
 import { Dispatch } from "redux";
 import { setLockActionStatus } from ".";
 import { getCoreContract } from "../../ethereum/coreLB";
-import { LockActionStatus, LockApproveState } from "../types";
+import { LockActionStatus } from "../types";
 import { getProvider } from "../walletConnect/helper";
 
 export const lockupHandling =

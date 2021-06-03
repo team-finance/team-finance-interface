@@ -54,7 +54,7 @@ const SubCard = (props: ConfigureSubCardType) => {
               value={value}
               className="form-control field-input"
               placeholder="0"
-              onChange={(e) => onChange(parseInt(e.target.value))}
+              onChange={(e) => onChange(e.target.value)}
             />
           </Col>
           {isMax && (

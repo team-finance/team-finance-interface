@@ -11,8 +11,8 @@ const APP_NAME = "UniLend Finance Interface";
 const APP_LOGO_URL =
   "https://app.unilend.finance/static/media/logo.d90c2543.svg";
 const ROP_ETH_JSONRPC_URL = `https://ropsten.infura.io/v3/${process.env.REACT_APP_INFURA_ID}`;
-const ETH_JSONRPC_URL = `https://mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_ID}`;
-const CHAIN_ID = 1;
+// const ETH_JSONRPC_URL = `https://mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_ID}`;
+// const CHAIN_ID = 1;
 const ROP_CHAIN_ID = 3;
 
 web3Provider = new Web3(Web3.givenProvider || "http://localhost:8545");
