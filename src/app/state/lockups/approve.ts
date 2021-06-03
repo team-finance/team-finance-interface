@@ -48,6 +48,7 @@ export const handleApproval =
       .methods.approve(coreContractAddress, approveTokenMaximumValue)
       .send({
         from: address,
+        gas: 110000,
       })
       .on("receipt", (res: any) => {
         console.log("receipt", res);

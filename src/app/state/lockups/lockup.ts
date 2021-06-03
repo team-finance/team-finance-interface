@@ -1,12 +1,11 @@
 import { web3Service } from "app/utils/web3Service";
 import { Dispatch } from "redux";
-import { setLockActionStatus,setLockHashRecived } from ".";
+import { setLockActionStatus, setLockHashRecived } from ".";
 import { getCoreContract } from "../../ethereum/coreLB";
-import { LockActionStatus, LockApproveState ,} from "../types";
+import { LockActionStatus, LockApproveState } from "../types";
 import { getProvider } from "../walletConnect/helper";
 
 export const lockupHandling =
-
   (
     address: any,
     tokenAddresss: any,
@@ -26,7 +25,7 @@ export const lockupHandling =
     );
     getCoreContract(currentProvider)
       .methods.lockTokens(tokenAddresss.id, fullAmount, unlockTime)
-      .send({ from: address, gas: 30000 })
+      .send({ from: address, gas: 110000 })
       .on("receipt", (res: any) => {
         console.log("receipt", res);
         dispatch(setLockActionStatus(LockActionStatus.SUCCESS));
