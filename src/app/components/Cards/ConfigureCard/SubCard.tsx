@@ -48,7 +48,7 @@ const SubCard = (props: ConfigureSubCardType) => {
           </Col>
         </Row>
         <Row className="m-0 h-50 row-wrap">
-          <Col className="p-0 value-wrap" sm={4} md={6} lg={6}>
+          <Col className="p-0 value-wrap" sm={6} md={6} lg={6}>
             <input
               type="number"
               value={value}
@@ -57,18 +57,20 @@ const SubCard = (props: ConfigureSubCardType) => {
               onChange={(e) => onChange(parseInt(e.target.value))}
             />
           </Col>
-          {isMax && (
-            <Col className="p-0 max-wrap" sm={2} md={2} lg={2}>
-              <Button
+
+          <Col className="unit-wrap">
+            {isMax && (
+              // <Col className="p-0 max-wrap" sm={2} md={2} lg={2}>
+              <button
                 // onClick={() => handleMax()}
                 onClick={handleMax}
                 className="max-btn"
+                style={{ color: "#3365d6" }}
               >
                 Max
-              </Button>
-            </Col>
-          )}
-          <Col className="unit-wrap">
+              </button>
+              // </Col>
+            )}
             {isUnit && unit ? (
               <div className="drop-down-btn">
                 <span className="title" onClick={() => setIsOpen(!isOpen)}>
