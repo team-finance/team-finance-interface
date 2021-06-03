@@ -81,6 +81,13 @@ const ConfigureCard = () => {
   useEffect(() => {
     getCalculatedDate(unit);
   }, [unit, dateCount]);
+
+  useEffect(() => {
+    lockActionStatus == 3 || lockActionStatus == 2
+      ? setLoading(false)
+      : setLoading(true);
+  }, [lockActionStatus]);
+
   useEffect(() => {
     console.log(selectedToken);
   }, [selectedToken]);
@@ -104,6 +111,7 @@ const ConfigureCard = () => {
     }
   };
   console.log(loading);
+  console.log(lockActionStatus);
   return (
     <AuxCard.Body className="configure-card">
       <Col className="p-0">
