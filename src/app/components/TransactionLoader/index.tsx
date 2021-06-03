@@ -3,31 +3,18 @@ import { Modal } from "react-bootstrap";
 import "./index.scss";
 import Loader from "react-loader-spinner";
 import Alert from "assets/images/error.svg";
-// import ArrowUp from "assets/arrowup.png";
+import {getTransactionHashUrl} from "../../helpers/common";
+import { useWalletState,useLockupState } from "app/state/hooks";
+
 interface Props {
   handleClose: () => void;
   mode: string;
 }
 
 const TransactionPopup: FC<Props> = ({ handleClose, mode }) => {
-  // const { theme } = useTypedSelector((state) => state.settings);
-  // const { activeNetWork } = useTypedSelector((state) => state.connectWallet);
-  // const { depositTransactionHash } = useTypedSelector((state) => state.deposit);
-  // const { donateTransactionHash } = useTypedSelector((state) => state.donate);
-  // const { redeemTransactionHash } = useTypedSelector((state) => state.redeem);
-  // const { airdropTransactionHash } = useTypedSelector((state) => state.airdrop);
-  // const getActiveHash = () => {
-  //   switch (activeTab) {
-  //     case "lend":
-  //       return depositTransactionHash;
-  //     case "reward":
-  //       return donateTransactionHash;
-  //     case "redeem":
-  //       return redeemTransactionHash;
-  //     case "airdrop":
-  //       return airdropTransactionHash;
-  //   }
-  // };
+  const { wallets } = useWalletState();
+  const {lockHashReceived} = useLockupState();
+
   function transactionMethods() {
     switch (mode) {
       case "success":
@@ -71,24 +58,13 @@ const TransactionPopup: FC<Props> = ({ handleClose, mode }) => {
                     <div className=" transaction-status ">
                       Transaction Submitted
                     </div>
-                    {/* {getActiveHash() ? ( */}
                     <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href={
-                        "#"
-                        //   getTransactionHashUrl(
-                        //   activeNetWork,
-                        //   getActiveHash()
-                        // )
-                      }
-                      className="sc-jKJlTe cEMwVc"
-                    >
-                      <div className="etherscan-link">View on Explorer</div>
-                    </a>
-                    {/* ) : (
-                      ""
-                    )} */}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={getTransactionHashUrl(wallets.selectedNetwork,lockHashReceived)}
+                >
+                  <div className="etherscan-link">View on Explorer</div>
+                </a>
                   </div>
                   <button
                     className="btn btn-lg btn-custom-primary mt-4 close-btn"

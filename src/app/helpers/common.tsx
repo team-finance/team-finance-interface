@@ -26,6 +26,31 @@ export function shortenAddress(address: string, chars = 4): any {
   }
 }
 
+
+
+  export const getTransactionHashUrl = (activeNetWork: string,hash: any) => {
+
+  let baseURL = `etherscan.io/tx/${hash}`;
+  let bscBaseURL = `bscscan.com/tx/${hash}`;
+  let maticURL = `maticvigil.com/tx/${hash}`;
+
+  switch (activeNetWork) {
+    case "Mainnet":
+      return `https://${baseURL}`;
+    case "Binance Testnet":
+      return `https://testnet.${bscBaseURL}`;
+    case "Binance Mainnet":
+      return `https://${bscBaseURL}`;
+    case "Matic Mainnet":
+      return `https://explorer-mainnet.${maticURL}`;
+    case "Mumbai Testnet":
+      return `https://explorer-mumbai.${maticURL}`;
+    default:
+      return `https://${activeNetWork.toLowerCase()}.${baseURL}`;
+  }
+};
+
+
 export function toDecimalPlace(n: any, d: any) {
   if (n.toString().indexOf(".") > -1) {
     var arr = n.toString().split(".");
