@@ -3,6 +3,9 @@ import { ProgressBar, Toast } from "react-bootstrap";
 import "./index.scss";
 import TickIcon from "assets/images/tick.svg";
 import ErrorIcon from "assets/images/error.svg";
+import {getTransactionHashUrl} from "../../../../helpers/common";
+import { useWalletState,useLockupState } from "app/state/hooks";
+
 interface Props {
   handleClose: () => void;
   message: string;
@@ -11,6 +14,8 @@ interface Props {
 }
 
 const AlertToast: FC<Props> = ({ handleClose, message, now, status }) => {
+  const { wallets } = useWalletState();
+  const {lockHashReceived} = useLockupState();
   // const getActiveHash = () => {
   //   switch (activeTab) {
   //     case "lend":
@@ -60,8 +65,7 @@ const AlertToast: FC<Props> = ({ handleClose, message, now, status }) => {
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={"#"}
-                  // href={getTransactionHashUrl(activeNetWork, getActiveHash())}
+                  href={getTransactionHashUrl(wallets.selectedNetwork,lockHashReceived)}
                 >
                   <div className="etherscan-link">View on Explorer</div>
                 </a>
@@ -88,8 +92,7 @@ const AlertToast: FC<Props> = ({ handleClose, message, now, status }) => {
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="#"
-                  // href={getTransactionHashUrl(activeNetWork, getActiveHash())}
+                  href={getTransactionHashUrl(wallets.selectedNetwork,lockHashReceived)}
                 >
                   <div className="etherscan-link">View on Explorer</div>
                 </a>
