@@ -55,6 +55,17 @@
     }
   }
 
+  @media only screen and (max-width: 600px) {
+    .nav-options {
+      display: none;
+    }
+  }
+  @media only screen and (max-width: 980px) {
+    .nav-options {
+      display: none;
+    }
+  }
+
   .btn-connect {
     text-align: center;
 

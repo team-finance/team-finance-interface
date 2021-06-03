@@ -29,7 +29,13 @@ const Layout = () => {
         <ConnectWalletModal
           handleClose={() => setWalletModalInfo({ show: false })}
           handleWalletConnect={(wallet: Wallet) =>
-            dispatch(connectWalletHandler(wallet, wallets.selectedChain, wallets.selectedNetworkId))
+            dispatch(
+              connectWalletHandler(
+                wallet,
+                wallets.selectedChain,
+                wallets.selectedNetworkId
+              )
+            )
           }
         />
       )}
