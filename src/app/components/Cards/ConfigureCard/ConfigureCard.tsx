@@ -13,9 +13,12 @@ import { getUserTokenBalance } from "app/state/walletConnect/helper";
 import TransactionPopup from "app/components/TransactionLoader";
 import AlertToast from "app/components/View/UI/AlertToast";
 import { LockActionStatus, LockApproveState } from "app/state/types";
+import { web3Service } from "app/utils/web3Service";
 
 const ConfigureCard = () => {
   const [amount, setAmount] = useState<number>(0);
+  const [tokenAddress, setTokenAddress] = useState<any>();
+
   const [dateCount, setDateCount] = useState<number>(90);
   const [unit, setUnit] = useState<number>(1);
   const [date, setDate] = useState(moment(Date()));
@@ -30,6 +33,13 @@ const ConfigureCard = () => {
   } = useLockupState();
   const { wallets } = useWalletState();
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (selectedToken.id) {
+      console.log(selectedToken.id);
+      let address = web3Service.getChecksumAddress(selectedToken.id);
+      setTokenAddress(address);
+    }
+  }, [selectedToken.id]);
   useEffect(() => {
     if (isLockupApproved) {
       setProgress(100);
@@ -122,7 +132,6 @@ const ConfigureCard = () => {
           unit={unit}
           onChange={setDateCount}
           onSelect={setUnit}
-
         />
         <div className="card-details">
           <Row className="m-0 mb-1">
