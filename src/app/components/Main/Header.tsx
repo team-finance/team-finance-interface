@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Row, Col, Spinner } from "react-bootstrap";
-import teamLogo from "assets/images/team-logo-white.png";
+import teamLogo from "assets/images/logo_sinola.svg";
 import { capitalize, shortenAddress } from "../../helpers/common";
 import { HEADER_LIST, NETWORK_LIST } from "../../constants";
 import { NavLink } from "react-router-dom";
