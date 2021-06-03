@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Row, Col, Button, Spinner } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import teamLogo from "assets/images/team-logo-white.png";
 import { capitalize, shortenAddress } from "../../helpers/common";
 import { HEADER_LIST, NETWORK_LIST } from "../../constants";
@@ -127,16 +127,16 @@ export const ActiveNetwork: FC<ActiveNetworkP> = ({ activeNetwork }) => {
 const Header: FC<Props> = ({ onConnect }) => {
   const { wallets } = useWalletState();
   const { settings } = useSettings();
-  const networkInfo = NETWORK_LIST.filter(
-    (item) => item.id === wallets.selectedNetworkId
-  )[0];
+  // const networkInfo = NETWORK_LIST.filter(
+  //   (item) => item.id === wallets.selectedNetworkId
+  // )[0];
 
   return (
     <Row className="main-header m-0">
-      <Col className="team-logo" sm={3} md={3} lg={3}>
+      <Col className="team-logo" sm={4} md={4} lg={3}>
         <img src={teamLogo} alt="team-logo" />
       </Col>
-      <Col sm={6} md={6} lg={6}>
+      <Col sm={2} md={4} lg={6}>
         <Row className="nav-options">
           {HEADER_LIST.map((item) => {
             const icon =
@@ -155,7 +155,7 @@ const Header: FC<Props> = ({ onConnect }) => {
           })}
         </Row>
       </Col>
-      <Col className="btn-connect" sm={3} md={3} lg={3}>
+      <Col className="btn-connect" sm={4} md={4} lg={3}>
         {(wallets.accounts && wallets.accounts.length) ||
         wallets.isConnected ? (
           <div
@@ -178,6 +178,7 @@ const Header: FC<Props> = ({ onConnect }) => {
                 borderRadius: "20px",
                 color: "white",
                 border: "0.0625rem solid #ffffff",
+                padding: "0.2rem",
               }}
             >
               <AccountBalance

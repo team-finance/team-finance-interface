@@ -1,14 +1,12 @@
 import { createSlice, Dispatch } from "@reduxjs/toolkit";
-import { toFixed } from "app/helpers/common";
 import { Wallet } from "app/helpers/types";
 import {
   CoinbaseProvider,
   CoinbaseWeb3,
   connectWalletProvider,
   connectWalletWeb3,
-  fm,
+  // fm,
   formaticWeb3,
-  web3,
 } from "app/utils/web3";
 import { web3Service } from "app/utils/web3Service";
 import { WalletState } from "../types";
@@ -292,7 +290,6 @@ export const handleWalletConnect =
                     })
                   );
                 });
-                const chainId = await web3.eth.chainId();
               } catch (err) {
                 dispatch(
                   connectWallet({
@@ -322,7 +319,7 @@ export const handleWalletConnect =
                       .getBalance(accounts[0])
                       .then((res: any) => {
                         let ethBal = web3Service.getWei(res, "ether");
-                        let ethBalDeci = toFixed(parseFloat(ethBal), 3);
+                        // let ethBalDeci = toFixed(parseFloat(ethBal), 3);
                         //   dispatch({
                         //     type: ActionType.ACCOUNT_BALANCE_SUCCESS,
                         //     payload: ethBalDeci,

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { AuxCard } from "../../helpers/widgets";
 import { Row, Col, Button } from "react-bootstrap";
@@ -7,7 +8,7 @@ import { FieldListType, SlideCardType } from "../../constants/types";
 import FieldCard from "./FieldCard";
 import { useAppDispatch } from "../../state";
 import { setThemeHandler } from "../../state/settings";
-import { useLockupState, useSettings, useWalletState } from "../../state/hooks";
+import { useLockupState, useWalletState } from "../../state/hooks";
 import TokenCard from "./TokenCard/TokenCard";
 import ConfigureCard from "./ConfigureCard/ConfigureCard";
 import { setChain } from "../../state/walletConnect";
@@ -17,7 +18,7 @@ import { LockActionStatus } from "app/state/types";
 import { setLockActionStatus } from "app/state/lockups";
 
 const ContentCard = () => {
-  const [selectedNetworkId, setSelectedNetworkId] = useState<number>(1);
+  const selectedNetworkId = useState<number>(1)[1];
   const [selectedTokenId, setSelectedTokenId] = useState<number>(2);
   const [showToast, toggleShowToast] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string>("No Messages");
@@ -30,7 +31,6 @@ const ContentCard = () => {
   });
 
   const dispatch = useAppDispatch();
-  const { settings } = useSettings();
   const { wallets } = useWalletState();
   const { lockActionStatus } = useLockupState();
   useEffect(() => {
@@ -88,16 +88,11 @@ const ContentCard = () => {
     },
     visible: {
       opacity: 1,
-      // y: "20px",
       transition: {
         delay: 0.2,
         duration: 0.5,
       },
     },
-    //  exit: {
-    //    x: "-100vw",
-    //    transition: { ease: "easeInOut" },
-    //  },
   };
   const pVariants = {
     hidden: {
@@ -105,16 +100,11 @@ const ContentCard = () => {
     },
     visible: {
       opacity: 1,
-      // y: "20px",
       transition: {
         delay: 0.5,
         duration: 0.5,
       },
     },
-    //  exit: {
-    //    x: "-100vw",
-    //    transition: { ease: "easeInOut" },
-    //  },
   };
   const selectVariants = {
     hidden: {
@@ -122,16 +112,11 @@ const ContentCard = () => {
     },
     visible: {
       opacity: 1,
-      // y: "20px",
       transition: {
         delay: 0.8,
         duration: 0.5,
       },
     },
-    //  exit: {
-    //    x: "-100vw",
-    //    transition: { ease: "easeInOut" },
-    //  },
   };
 
   return (

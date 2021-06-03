@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { getCoreContract, getIERC20Contract } from "../../ethereum/coreLB";
+import { getIERC20Contract } from "../../ethereum/coreLB";
 import {
   coreContractAddress,
   approveTokenMaximumValue,
@@ -10,7 +10,6 @@ import {
   toggleLockupApproved,
   setLockApproveStatus,
   toggleLockApproveLoading,
-  setLockActionStatus,
 } from "./index";
 
 export const getAllowance =
