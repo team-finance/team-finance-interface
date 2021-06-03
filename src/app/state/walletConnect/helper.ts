@@ -1,7 +1,7 @@
 import { toFixed } from "app/helpers/common";
 import { Wallet } from "app/helpers/types";
 import { Dispatch } from "redux";
-import { connectWallet, setAccountBalance, setUserTokenBalance,setSelectedNetworkId } from ".";
+import { setAccountBalance, setNetworkId, setUserTokenBalance } from ".";
 import {
   CoinbaseProvider,
   CoinbaseWeb3,
@@ -39,6 +39,30 @@ export const checkNet = (net: any) => {
   }
 };
 
+export const networkSwitchHandling =
+  (wallet: any, id?: any) => async (dispatch: Dispatch) => {
+    const { currentProvider } = await getProvider(wallet);
+
+    await currentProvider.eth.net.getId().then(async (res: any) => {
+      let accsName = await checkNet(res);
+      dispatch(
+        setNetworkId({
+          id: res,
+          name: accsName,
+        })
+      );
+    });
+    if (id) {
+      let accsName = checkNet(id);
+      dispatch(
+        setNetworkId({
+          id: id,
+          name: accsName,
+        })
+      );
+    }
+  };
+
 export const getProvider = (wallet: any) => {
   let currentProvider: any;
   let provider: any;
@@ -67,21 +91,6 @@ export const getProvider = (wallet: any) => {
   return { currentProvider, provider };
 };
 
-export const getSelectedNetworkId = 
-(selectedNetworkId: number,) => 
-async(dispatch: Dispatch) => {
-  console.log("datttta",selectedNetworkId);
-  let networkId = selectedNetworkId;
-  dispatch(setSelectedNetworkId(networkId));
-}
-
-// export const setSelectedNetworkId =
-//  (selectedNetworkId: number) => ({
-//   type: ActionType.SELECTED_NETWORK_ID,
-//   networkId: selectedNetworkId,
-  
-// });
-
 export const getAccountBalance =
   (selectedAccount: string, currentProvider: any, networkId?: any) =>
   async (dispatch: Dispatch) => {
@@ -105,7 +114,6 @@ export const getAccountBalance =
       dispatch(setAccountBalance(""));
     }
   };
-
 
 export const getUserTokenBalance =
   (selectedToken: any, accounts: any, wallet: any) =>

@@ -2,10 +2,14 @@ import React, { FC } from "react";
 import { Row, Col, Button, Spinner } from "react-bootstrap";
 import teamLogo from "assets/images/team-logo-white.png";
 import { capitalize, shortenAddress } from "../../helpers/common";
-import { HEADER_LIST,NETWORK_LIST } from "../../constants";
+import { HEADER_LIST, NETWORK_LIST } from "../../constants";
 import { NavLink } from "react-router-dom";
 import { useSettings, useWalletState } from "app/state/hooks";
-import { AddressTabProps, ConnectWalletButtonProps ,NetworkInfoTabProps} from "app/helpers/types";
+import {
+  AddressTabProps,
+  ConnectWalletButtonProps,
+  NetworkInfoTabProps,
+} from "app/helpers/types";
 
 const activeNetworkBaseCurrency = (selectedNetworkId: any) => {
   if (selectedNetworkId === 137 || selectedNetworkId === 80001) {
@@ -54,8 +58,6 @@ export const ConnectWalletButton = ({
     </button>
   );
 };
-
-
 
 export const NetworkInfoTab = ({
   theme,
@@ -129,7 +131,6 @@ const Header: FC<Props> = ({ onConnect }) => {
     (item) => item.id === wallets.selectedNetworkId
   )[0];
 
-
   return (
     <Row className="main-header m-0">
       <Col className="team-logo" sm={3} md={3} lg={3}>
@@ -165,29 +166,27 @@ const Header: FC<Props> = ({ onConnect }) => {
             }}
           >
             {wallets?.activeNetWork && (
-              <ActiveNetwork
-                activeNetwork={wallets.activeNetWork}
-              />
+              <ActiveNetwork activeNetwork={wallets.activeNetWork} />
             )}
 
-            {wallets?.accountBalance && (
-              <div
-                style={{
-                  display: "flex",
-                  backgroundColor: "",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: "20px",
-                  color: "white",
-                  border: "0.0625rem solid #ffffff",
-                }}
-              >
-                <AccountBalance
-                  accountBalance={wallets.accountBalance}
-                  tokenType={wallets.networkId}
-                />
-              </div>
-            )}
+            <div
+              style={{
+                display: "flex",
+                backgroundColor: "",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "20px",
+                color: "white",
+                border: "0.0625rem solid #ffffff",
+              }}
+            >
+              <AccountBalance
+                accountBalance={
+                  wallets?.accountBalance && wallets.accountBalance
+                }
+                tokenType={wallets.networkId}
+              />
+            </div>
             <AddressTab
               theme={settings.isDark}
               onClick={() => {}}

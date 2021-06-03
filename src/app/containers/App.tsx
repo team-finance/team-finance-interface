@@ -7,19 +7,33 @@ import "../../assets/scss/app.scss";
 import { useWalletState } from "app/state/hooks";
 import { connectWalletHandler } from "app/state/walletConnect";
 import { useAppDispatch } from "app/state";
+import { networkSwitchHandling } from "app/state/walletConnect/helper";
 const App = () => {
   const { wallets } = useWalletState();
   const dispatch = useAppDispatch();
   useEffect(() => {
     // fetchToken("");
-    if (wallets.isConnected && wallets.accounts[0]) {
+    if (wallets.connectedWallet && wallets.accounts[0]) {
       dispatch(
-        connectWalletHandler(wallets.connectedWallet, wallets.selectedChain,wallets.selectedNetworkId)
+        connectWalletHandler(
+          wallets.connectedWallet,
+          wallets.selectedChain,
+          wallets.selectedNetworkId
+        )
       );
-      // getAllowance(wallets.accounts[0], wallets.currentProvider);
+      dispatch(networkSwitchHandling(wallets.connectedWallet));
     }
     dotEnv.config();
-  }, [wallets.connectedWallet, wallets.selectedChain, wallets.selectedNetworkId]);
+  }, [
+    wallets.connectedWallet,
+    wallets.selectedChain,
+    wallets.selectedNetworkId,
+  ]);
+  useEffect(() => {
+    if (wallets.connectedWallet && wallets.accounts[0]) {
+      dispatch(networkSwitchHandling(wallets.connectedWallet));
+    }
+  }, [wallets.accounts, wallets.connectedWallet]);
   return <Layout />;
 };
 
