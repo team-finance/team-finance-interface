@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import Providers from "./provider";
 //IMPORT STYLES
 import "./assets/scss/app.scss";
-import "./assets/css/bootstrap.min.css";
+// import "./assets/css/bootstrap.min.css";
 
 ReactDOM.render(
   <React.StrictMode>

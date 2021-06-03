@@ -36,7 +36,6 @@ const TransactionPopup: FC<Props> = ({ handleClose, mode }) => {
             <Modal
               className={`modal-theme `}
               animation={false}
-              size="xl"
               show={true}
               onHide={handleClose}
             >
@@ -115,7 +114,6 @@ const TransactionPopup: FC<Props> = ({ handleClose, mode }) => {
             <Modal
               className={`modal-theme `}
               animation={false}
-              size="xl"
               show={true}
               onHide={handleClose}
             >
@@ -150,7 +148,6 @@ const TransactionPopup: FC<Props> = ({ handleClose, mode }) => {
             <Modal
               className={`modal-theme`}
               animation={false}
-              size="xl"
               show={true}
               onHide={handleClose}
               // centered
