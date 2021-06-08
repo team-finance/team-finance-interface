@@ -10,6 +10,10 @@
   background-color: #2060eb;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .main-header {
   min-height: 5.625rem;
   width: 100%;
