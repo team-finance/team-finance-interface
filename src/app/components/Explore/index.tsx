@@ -28,9 +28,21 @@ const Explore = () => {
       <div className="explorecard-tablemain">
         {/* <Row className="m-0 explorecard-table"> */}
         {/* <Col className="m-0 p-0"> */}
-        <Form className="explore-search">
-          <Form.Control type="email" placeholder="Enter email" />
-        </Form>
+        {/* <Form className="explore-search">
+          <Form.Control
+            type="text"
+            placeholder="Search for a token by name/address/contract"
+          />
+        </Form> */}
+        <div className={`input-search-container w-100`}>
+          <div className="input-with-icon">
+            <input
+              type="text"
+              placeholder="Search for a token by name/address/contract"
+            />
+            <i className="fa fa-search" aria-hidden="true" />
+          </div>
+        </div>
         {/* </Col> */}
         <Table borderless hover size="md" className="explore-table">
           <thead>

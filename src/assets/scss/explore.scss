@@ -1,3 +1,5 @@
+@import "./colors.scss";
+
 .explore-container {
   height: 100%;
   background-color: white;
@@ -57,7 +59,7 @@
     justify-content: center;
     margin-top: 50px;
     height: 100%;
-    padding: 0.5rem;
+    padding: 1rem;
     .explore-search {
       margin: 10px;
     }
@@ -71,6 +73,56 @@
       margin: 20px;
       display: flex;
       align-items: flex-start;
+    }
+    .input-search-container {
+      min-height: 1.25rem;
+      min-width: 3rem;
+      margin: 1rem 0rem;
+
+      input[type="text"] {
+        height: 3rem;
+        width: 100%;
+        background-color: #fff;
+        border: 0.0625rem solid #dfe1e6;
+        border-radius: 0.1875rem;
+        outline: none;
+        padding: 0.3125rem;
+        box-sizing: border-box;
+        transition: 0.3s;
+        font-size: 0.875rem;
+        color: $color-header-sub-title;
+
+        &:focus {
+          background-color: #fff;
+          border-color: $color-input-focus;
+          box-shadow: 0 0 0.3125rem 0 $color-input-focus;
+        }
+      }
+
+      .input-with-icon {
+        position: relative;
+        height: 50%;
+
+        input[type="text"] {
+          padding-left: 0.625rem;
+          padding-right: 1.875rem;
+        }
+
+        i {
+          cursor: pointer;
+          position: absolute;
+          right: 0;
+          top: 0;
+          padding: 1rem 0.5rem;
+          color: #aaa;
+          transition: 0.3s;
+          font-size: 1.1rem;
+        }
+
+        input[type="text"]:focus + i.primary-icon {
+          color: $color-input-focus;
+        }
+      }
     }
   }
   @media (max-width: 660px) {
