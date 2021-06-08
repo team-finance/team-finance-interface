@@ -7,11 +7,16 @@
   overflow: scroll;
   position: fixed;
   font-family: "Helvetica Neue", Roboto;
-  background-color: #2060eb;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar {
   display: none;
+}
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: $color-header-sub-title;
+  opacity: 0.8; /* Firefox */
 }
 
 .main-header {

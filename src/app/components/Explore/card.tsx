@@ -7,8 +7,8 @@ const ExploreCard = () => {
     <div className="explorecard-data">
       <img src={icon} className="explore-card-icon" alt="Avatar" />
       <div className="header-container">
-        <h6 className="explorecard-value">value</h6>
-        <h6 className="explorecard-value">value</h6>
+        <div className="explorecard-main-value">$ 555,150,751.57</div>
+        <div className="explorecard-sub-value">Total Locked Token Value</div>
       </div>
     </div>
   );

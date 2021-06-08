@@ -6,7 +6,7 @@ const Explore = () => {
   return (
     <div className="explore-container">
       <div className="explore-sub-container">
-        <h1 className="explore-header">Trust swaps | smart locks</h1>
+        <h1 className="explore-header">TrustSwaps | smart locks</h1>
         <h5 className="explore-sub-header">
           Liquidity Locking & Team Vesting for Token Founders and Community
         </h5>
@@ -38,7 +38,8 @@ const Explore = () => {
           <div className="input-with-icon">
             <input
               type="text"
-              placeholder="Search for a token by name/address/contract"
+              placeholder={`Search for a token by name/address/contract`}
+              // placeholder="Search for a token by name/address/contract"
             />
             <i className="fa fa-search" aria-hidden="true" />
           </div>
@@ -47,13 +48,13 @@ const Explore = () => {
         <Table borderless hover size="md" className="explore-table">
           <thead>
             <tr>
-              <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
+              <th>NAME</th>
+              <th>BLOCKCHAIN</th>
+              <th>LIQUIDITY LOCKED</th>
+              <th>TOKENS LOCKED</th>
+              <th>VALUE LOCKED</th>
+              <th>NEXT UNLOCK</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -66,7 +67,7 @@ const Explore = () => {
               <td>@mdo</td>
               <td>Otto</td>
             </tr>
-            <tr>
+            {/* <tr>
               <td>2</td>
               <td>Jacob</td>
               <td>Thornton</td>
@@ -80,7 +81,7 @@ const Explore = () => {
               <td>Larry the Bird</td>
               <td>@twitter</td>
               <td>@twitter</td>
-            </tr>
+            </tr> */}
           </tbody>
         </Table>
         {/* </Row> */}
