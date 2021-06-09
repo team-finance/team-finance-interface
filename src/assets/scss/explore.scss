@@ -4,12 +4,14 @@
   height: 100%;
   background-color: white;
   .explore-sub-container {
-    background-color: #2060eb;
+    // background-color: #2060eb;
+    background-image: linear-gradient(#1d66de, #0a4ab3);
     // background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
-    height: 60vh;
+    // height: 60vh;
     display: flex;
     padding-left: 20px;
     padding-right: 20px;
+    padding-bottom: 2.2rem;
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
@@ -138,8 +140,13 @@
         }
       }
     }
+    .explore-table {
+      .table-body {
+        // background-color: blue;
+      }
+    }
   }
-  @media (max-width: 660px) {
+  @media (max-width: 800px) {
     .explore-card-container {
       display: flex;
       flex-wrap: wrap;

@@ -1,12 +1,13 @@
 import "../../../assets/scss/explore.scss";
 import ExploreCard from "./card";
-import { Table, Form } from "react-bootstrap";
+import { Table, Form, Button } from "react-bootstrap";
+import Logo from "../../../assets/images/metamask.png";
 
 const Explore = () => {
   return (
     <div className="explore-container">
       <div className="explore-sub-container">
-        <h1 className="explore-header">TrustSwaps | smart locks</h1>
+        <h1 className="explore-header">TrustSwap | smart locks</h1>
         <h5 className="explore-sub-header">
           Liquidity Locking & Team Vesting for Token Founders and Community
         </h5>
@@ -57,15 +58,48 @@ const Explore = () => {
               <th></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="table-body">
             <tr>
-              <td>1</td>
+              <td
+                style={{
+                  backgroundColor: "orange",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  src={Logo}
+                  alt="logo"
+                  style={{
+                    height: "20px",
+                    width: "20px",
+                    borderRadius: "50%",
+                  }}
+                />
+                <div>
+                  <p
+                    style={{
+                      backgroundColor: "red",
+                      fontSize: "1rem",
+                      margin: 0,
+                    }}
+                  >
+                    Kin
+                  </p>
+                  <p style={{ fontSize: "0.8rem", margin: 0, padding: 0 }}>
+                    kin
+                  </p>
+                </div>
+              </td>
               <td>Mark</td>
               <td>Otto</td>
               <td>@mdo</td>
               <td>Otto</td>
               <td>@mdo</td>
-              <td>Otto</td>
+              <td>
+                <Button variant="light">View</Button>
+              </td>
             </tr>
             {/* <tr>
               <td>2</td>

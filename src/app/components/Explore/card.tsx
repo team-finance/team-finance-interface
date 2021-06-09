@@ -1,4 +1,3 @@
-import React from "react";
 import "../../../assets/scss/explore.scss";
 import icon from "../../../assets/images/binance.png";
 
